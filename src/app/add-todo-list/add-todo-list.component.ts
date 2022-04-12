@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {  ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {  FormGroup,  FormControl,  Validators,  FormBuilder,} from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms";
 
 @Component({
   selector: 'app-add-todo-list',
@@ -9,9 +9,11 @@ import {  FormGroup,  FormControl,  Validators,  FormBuilder,} from "@angular/fo
   styleUrls: ['./add-todo-list.component.css']
 })
 export class AddTodoListComponent implements OnInit {
-  addBtn:any;
-
-  toDoForm: FormGroup ;
+  addBtn: any;
+  notesObj: any = [];
+  myObj: any;
+  getData:any;
+  toDoForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
 
@@ -19,39 +21,23 @@ export class AddTodoListComponent implements OnInit {
   ngOnInit(): void {
 
     this.toDoForm = this.fb.group({
-      "title": new FormControl(''),
-      "note": new FormControl(''),
+      "title": new FormControl(),
+      "note": new FormControl(),
 
     });
 
   }
-
-  save(){
-    //  this.addBtn = document.getElementById('addBtn');
-    // this.addBtn.addEventListener("click", function () {
-    //     let addTxt = document.getElementById('addTxt');
-    //     let noteTitle = document.getElementById('noteTitle');
-
-    //     let notes = localStorage.getItem('notes');
-console.log('save button clicked');
-
-
-
-        // if (notes == null) {
-        //     notesObj = [];
-        // } else {
-        //     notesObj = JSON.parse(notes);
-        // }
-        // let myObj = {
-        //     title: noteTitle.value,
-        //     text: addTxt.value
-        // }
-        // notesObj.push(myObj);
-        // localStorage.setItem("notes", JSON.stringify(notesObj));
-        // addTxt.value = "";
-        // noteTitle.value = "";
-
-
-    // });
+// save function used to save to do list in local storage
+  save() {
+    this.getData = localStorage.getItem('notes')
+    this.notesObj = JSON.parse(this.getData)
+    this.myObj = {
+      title: this.toDoForm.value.title,
+      note: this.toDoForm.value.note
+    }
+    this.notesObj.push(this.myObj)
+    localStorage.setItem("notes", JSON.stringify(this.notesObj));
+    this.ngOnInit();
+    // debugger
   }
 }

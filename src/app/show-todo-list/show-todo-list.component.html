@@ -1,1 +1,26 @@
-<p>show-todo-list works!</p>
+<div class="container mt-3">
+  <h2 class="mt-2">Your notes</h2>
+  <hr>
+
+  <div  id="notes" class="row container-fluid justify-content-center"  >
+
+    <div class="card noteCard my-2 mx-2" style="width: 18rem; " *ngFor="let item of notesObj; index as i">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+
+            <h1 class="card-title">Note {{i + 1}}</h1>
+          </div>
+          <div class="col-md-4">
+            <span><i class="fa-solid fa-trash-can " (click)="deleteNote(i)"></i></span>
+            <span><i class="fa-solid fa-pen-to-square  ml-2" (click)="editNote(i)" ></i></span>
+          </div>
+        </div>
+     <h3> {{item.title}}</h3>
+     <p class="card-text"> {{item.note}}</p>
+
+     </div>
+ </div>
+
+  </div>
+</div>
