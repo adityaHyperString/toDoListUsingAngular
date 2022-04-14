@@ -1,26 +1,48 @@
 <div class="container mt-3">
-  <h2 class="mt-2">Your notes</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <h2 class="mt-2">Your notes</h2>
+    </div>
+    <div class="col-md-5">
+      <input class="form-control mr-sm-2" type="search" ng-model="searchText" id="searchText" [(ngModel)]="txtSearch"
+        placeholder="Search by Note" aria-label="Search">
+      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button> -->
+    </div>
+    <div class="col-md-3 d-flex justify-content-end">
+      <button class="btn btn-info" id="addBtn" (click)="removeDuplicates()">Remove Duplicates </button>
+    </div>
+
+  </div>
+
   <hr>
 
-  <div  id="notes" class="row container-fluid justify-content-center"  >
+  <div id="notes" class="row container-fluid justify-content-center">
 
-    <div class="card noteCard my-2 mx-2" style="width: 18rem; " *ngFor="let item of notesObj; index as i">
+    <div id="card" class="card   my-2 mx-2 " style="width: 18rem; " ng-repeat="item in notesObj | filter:searchText"
+      *ngFor="let item of notesObj | filter:txtSearch; index as i">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-9 pl-0 pr-0">
 
             <h1 class="card-title">Note {{i + 1}}</h1>
           </div>
-          <div class="col-md-4">
-            <span><i class="fa-solid fa-trash-can " (click)="deleteNote(i)"></i></span>
-            <span><i class="fa-solid fa-pen-to-square  ml-2" (click)="editNote(i)" ></i></span>
+          <div class="col-md-3 pl-0 pr-0 mt-2">
+            <span><i class="fa-solid fa-trash-can " (click)="deleteNote(i)" matTooltip="Delete note"></i></span>
+            <span><i class="fa-solid fa-pen-to-square  ml-2" (click)="editNote(i)" matTooltip="Edit note"></i></span>
+
           </div>
         </div>
-     <h3> {{item.title}}</h3>
-     <p class="card-text"> {{item.note}}</p>
+        <div class="row">
+          <div class="col-md-10 ml-4">
+            <input type="checkbox" class="form-check-input" [(ngModel)]="item.isChecked" (change)="markDone($event,i)">
+            <label class="form-check-label" for="exampleCheck1">Mark As Complete</label>
+          </div>
+        </div>
+        <h2> {{item.title}}</h2>
+        <p class="card-text"> {{item.note}}</p>
 
-     </div>
- </div>
+      </div>
+    </div>
 
   </div>
 </div>

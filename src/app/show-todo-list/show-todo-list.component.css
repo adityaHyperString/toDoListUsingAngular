@@ -1,10 +1,22 @@
 .fa-trash-can{
   color: red;
-  font-size: large;
+  font-size: larger;
   cursor: pointer;
 }
 .fa-pen-to-square{
   color: blue;
-  font-size: large;
+  font-size: larger;
   cursor: pointer;
+}
+.fa-circle-check{
+  color: rgb(89, 222, 33);
+  font-size: larger;
+  cursor: pointer;
+
+}
+.card{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.btn-info{
+  height: 37px;
 }

@@ -11,13 +11,19 @@ import { ShowTodoListComponent } from './show-todo-list/show-todo-list.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import { UpdateTodoListComponent } from './update-todo-list/update-todo-list.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { FilterPipe } from './appPipes/filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AddTodoListComponent,
-    ShowTodoListComponent
+    ShowTodoListComponent,
+    UpdateTodoListComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -26,9 +32,11 @@ import {MatInputModule} from '@angular/material/input';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatTooltipModule
   ],
-  providers: [],
+  providers: [ShowTodoListComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
