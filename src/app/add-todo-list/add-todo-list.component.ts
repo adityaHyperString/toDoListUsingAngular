@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms";
@@ -11,14 +11,15 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./add-todo-list.component.css']
 })
 export class AddTodoListComponent implements OnInit {
+  @ViewChild('childComponent', { static: false }) childComponent: ShowTodoListComponent;
   addBtn: any;
   notesObj: any = [];
   myObj: any;
   getData: any;
   toDoForm: FormGroup;
   dialog: any
-
-  constructor(private fb: FormBuilder, public showComponent: ShowTodoListComponent) { }
+  inputVariable: any = [];
+  constructor(private fb: FormBuilder) { }
 
 
 
@@ -30,7 +31,7 @@ export class AddTodoListComponent implements OnInit {
       "note": new FormControl(),
 
     });
-    this.showComponent.ngOnInit();
+    //  this.showComponent.showNotes()
   }
   // save function used to save to do list in local storage
   save() {
@@ -45,8 +46,11 @@ export class AddTodoListComponent implements OnInit {
 
     this.notesObj.push(this.myObj)
     localStorage.setItem("notes", JSON.stringify(this.notesObj));
+    this.inputVariable = this.notesObj;
+    console.log('inputvariable', this.inputVariable);
 
     this.ngOnInit();
+    this.childComponent.showNotes()
     // debugger
   }
 

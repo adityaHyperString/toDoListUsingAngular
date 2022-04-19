@@ -20,7 +20,7 @@
 
     <div id="card" class="card   my-2 mx-2 " style="width: 18rem; " ng-repeat="item in notesObj | filter:searchText"
       *ngFor="let item of notesObj | filter:txtSearch; index as i">
-      <div class="card-body">
+      <div class="card-body" id="cardBody">
         <div class="row">
           <div class="col-md-9 pl-0 pr-0">
 
@@ -32,13 +32,8 @@
 
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-10 ml-4">
-            <input type="checkbox" class="form-check-input" [(ngModel)]="item.isChecked" (change)="markDone($event,i)">
-            <label class="form-check-label" for="exampleCheck1">Mark As Complete</label>
-          </div>
-        </div>
-        <h2> {{item.title}}</h2>
+
+        <h2 id="h2"> {{item.title}}</h2>
         <p class="card-text"> {{item.note}}</p>
 
       </div>

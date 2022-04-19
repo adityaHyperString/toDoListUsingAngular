@@ -15,6 +15,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { UpdateTodoListComponent } from './update-todo-list/update-todo-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FilterPipe } from './appPipes/filter.pipe';
+import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { FilterPipe } from './appPipes/filter.pipe';
     AddTodoListComponent,
     ShowTodoListComponent,
     UpdateTodoListComponent,
-    FilterPipe
+    FilterPipe,
+    ConfirmBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { FilterPipe } from './appPipes/filter.pipe';
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [ShowTodoListComponent],
   bootstrap: [AppComponent]

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddTodoListComponent } from '../add-todo-list/add-todo-list.component';
 import { UpdateTodoListComponent } from '../update-todo-list/update-todo-list.component';
+import { ConfirmBoxComponent } from "../confirm-box/confirm-box.component";
+
 
 @Component({
   selector: 'app-show-todo-list',
@@ -18,6 +20,8 @@ export class ShowTodoListComponent implements OnInit {
   editButton = true;
   getData: any;
   txtSearch: string = '';
+  deletedData: any = [];
+
   constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -35,12 +39,27 @@ export class ShowTodoListComponent implements OnInit {
 
   }
 
+  openConfirmDialog() {
+    return this.dialog.open(ConfirmBoxComponent)
+  }
+
   //deleteNotes() used to delete perticular data from localStorage
   deleteNote(index) {
-    this.notesObj = JSON.parse(this.storedNotes);
-    this.notesObj.splice(index, 1)
-    localStorage.setItem("notes", JSON.stringify(this.notesObj));
-    this.ngOnInit();
+    this.openConfirmDialog().afterClosed().subscribe(res => {
+      if (res) {
+        this.notesObj = JSON.parse(this.storedNotes);
+        this.deletedData = this.notesObj.splice(index, 1)
+        console.log('delted data', this.deletedData);
+        localStorage.setItem('deletedData', JSON.stringify(this.deletedData));
+        localStorage.setItem("notes", JSON.stringify(this.notesObj));
+
+        this.ngOnInit();
+      } else {
+        this.ngOnInit();
+      }
+
+    })
+
   }
 
   editNote(index) {
@@ -57,23 +76,11 @@ export class ShowTodoListComponent implements OnInit {
       if (result) {
         console.log(result)
         this.notesObj[index] = result;
+        this.ngOnInit();
       }
     })
   }
-  markDone(e, i) {
 
-    console.log(i);
-    this.card = document.getElementById('card');
-    if (e.target.checked == true) {
-      console.log('checkbox is true');
-      this.card.style.backgroundColor = "#d2e2e2"
-    } else {
-      console.log('checkbox is false');
-      this.card.style.backgroundColor = "#FFFFFF"
-    }
-
-
-  }
   removeDuplicates() {
     console.log('inside remove');
     this.getData = localStorage.getItem('notes')
@@ -81,19 +88,11 @@ export class ShowTodoListComponent implements OnInit {
     console.log(this.notesObj);
 
     const uniqueValues = [...this.notesObj.reduce((map, obj) => map.set(obj.title.toLowerCase(), obj), new Map()).values()];
-    console.log('unique', uniqueValues);
     localStorage.setItem("notes", JSON.stringify(uniqueValues));
     this.ngOnInit();
 
   }
 
-  search() {
-    console.log('search');
-    let search = document.getElementById('searchText');
 
-    // let filter = search.value.toUpperCase();
-
-
-  }
 
 }

@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
   search: any;
   searchForm: FormGroup;
   notesObj: any = [];
+  txtSearch: string = '';
   constructor(private fb: FormBuilder,) { }
 
   ngOnInit(): void {
