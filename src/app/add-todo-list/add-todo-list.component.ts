@@ -31,7 +31,7 @@ export class AddTodoListComponent implements OnInit {
       "note": new FormControl(),
 
     });
-    //  this.showComponent.showNotes()
+
   }
   // save function used to save to do list in local storage
   save() {
