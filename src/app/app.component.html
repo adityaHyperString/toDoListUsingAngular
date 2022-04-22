@@ -1,2 +1,21 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<nb-layout >
+
+
+
+  <nb-sidebar state="compacted">
+    <app-compact-sidebar></app-compact-sidebar>
+  </nb-sidebar>
+  <nb-sidebar>Sidebar Content</nb-sidebar>
+
+  <nb-layout-column>
+    <app-header></app-header>
+
+    <router-outlet></router-outlet>
+
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+  <!-- Insert footer here -->
+  </nb-layout-footer>
+
+</nb-layout>

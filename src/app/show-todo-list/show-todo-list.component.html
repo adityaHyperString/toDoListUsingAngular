@@ -1,24 +1,26 @@
 <div class="container mt-3">
+  <hr>
   <div class="row">
-    <div class="col-md-4">
+
+
+    <div class="col-md-3 d-flex justify-content-end">
+      <button nbButton shape="semi-round" size="small" status="success" class="height" id="addBtn" (click)="removeDuplicates()">Remove Duplicates </button>
+    </div>
+    <div class="col-md-6">
       <h2 class="mt-2">Your notes</h2>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-3">
       <input class="form-control mr-sm-2" type="search" ng-model="searchText" id="searchText" [(ngModel)]="txtSearch"
         placeholder="Search by Note" aria-label="Search">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button> -->
     </div>
-    <div class="col-md-3 d-flex justify-content-end">
-      <button class="btn btn-info" id="addBtn" (click)="removeDuplicates()">Remove Duplicates </button>
-    </div>
-
   </div>
 
   <hr>
 
   <div id="notes" class="row container-fluid justify-content-center">
 
-    <div id="card" class="card   my-2 mx-2 " style="width: 18rem; " ng-repeat="item in notesObj | filter:searchText"
+    <nb-card nb-card accent="info" status="warning" id="card" class="card   my-2 mx-2 " style="width: 18rem; " ng-repeat="item in notesObj | filter:searchText"
       *ngFor="let item of notesObj | filter:txtSearch; index as i">
       <div class="card-body" id="cardBody">
         <div class="row">
@@ -42,7 +44,7 @@
         <p class="card-text" id="note"> {{item.note}}</p>
 
       </div>
-    </div>
+    </nb-card>
 
   </div>
 </div>

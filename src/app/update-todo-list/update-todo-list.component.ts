@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms
 @Component({
   selector: 'app-update-todo-list',
   templateUrl: './update-todo-list.component.html',
-  styleUrls: ['./update-todo-list.component.css']
+  styleUrls: ['./update-todo-list.component.scss']
 })
 export class UpdateTodoListComponent implements OnInit {
   updateForm: FormGroup;

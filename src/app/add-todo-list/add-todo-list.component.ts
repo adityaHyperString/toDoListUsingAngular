@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-todo-list',
   templateUrl: './add-todo-list.component.html',
-  styleUrls: ['./add-todo-list.component.css']
+  styleUrls: ['./add-todo-list.component.scss']
 })
 export class AddTodoListComponent implements OnInit {
   @ViewChild('childComponent', { static: false }) childComponent: ShowTodoListComponent;

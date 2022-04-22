@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-show-todo-list',
   templateUrl: `./show-todo-list.component.html`,
-  styleUrls: ['./show-todo-list.component.css']
+  styleUrls: ['./show-todo-list.component.scss']
 })
 export class ShowTodoListComponent implements OnInit {
   storedNotes: any = [];
@@ -106,6 +106,8 @@ export class ShowTodoListComponent implements OnInit {
     const dialogRref = this.dialog.open(UpdateTodoListComponent, {
       data: { note: this.notesObj[index], index },
     })
+
+
 
     dialogRref.afterClosed().subscribe((result: any) => {
       if (result) {
