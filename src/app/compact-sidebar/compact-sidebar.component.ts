@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NbSidebarService } from '@nebular/theme';
 
 @Component({
   selector: 'app-compact-sidebar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompactSidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sidebarService: NbSidebarService) { }
 
   ngOnInit(): void {
   }
 
+  toggleCompact() {
+    this.sidebarService.toggle(true, 'right');
+  }
 }
