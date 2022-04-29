@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,6 +13,8 @@ export class HeaderComponent implements OnInit {
   notesObj: any = [];
   txtSearch: string = '';
   constructor(private fb: FormBuilder,) { }
+
+
 
   ngOnInit(): void {
 

@@ -1,21 +1,17 @@
 
 <nb-layout class="layout">
-  <nb-sidebar state="compacted" class="compactSidebar">
-
-
+  <nb-sidebar  state="compacted" class="compactSidebar">
       <app-compact-sidebar ></app-compact-sidebar>
-
   </nb-sidebar>
-  <nb-sidebar>Sidebar Content</nb-sidebar>
+  <nb-sidebar>
+    <app-main-sidebar></app-main-sidebar>
+  </nb-sidebar>
   <nb-layout-header subheader>
     <app-header></app-header>
   </nb-layout-header>
 
   <nb-layout-column>
-
-
     <router-outlet></router-outlet>
-
   </nb-layout-column>
 
   <nb-layout-footer fixed>

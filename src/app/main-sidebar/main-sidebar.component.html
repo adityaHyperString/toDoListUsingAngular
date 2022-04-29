@@ -1,0 +1,45 @@
+<h4>Favorites</h4>
+
+
+
+
+<h4 class="mb-0 cursor" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+  aria-controls="collapseOne">
+
+  Everything
+  <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
+</h4>
+
+<div id="collapseOne" class="collapse hide mt-2 cursor" aria-labelledby="headingOne" data-parent="#accordion">
+  <h4 (click)="addSpace()">
+    <nb-icon icon="plus-outline"></nb-icon>Add Space
+  </h4>
+  <nb-form-field id="addFolderForm" class="addFolderForm" [formGroup]="newFolderForm">
+    <button nbSuffix nbButton ghost (click)="createNewFolder()">
+      <nb-icon icon="plus-circle-outline"></nb-icon>
+    </button>
+
+    <input nbInput fieldSize="small" formControlName="folderName" class="w10" placeholder="new space">
+  </nb-form-field>
+  <div class="col">
+
+    <h4 *ngFor="let item of folders; index as i " data-toggle="collapse" [attr.data-target]="'#collapseTwo'+'item.id'" aria-expanded="true"  [attr.aria-controls]="'collapseTwo'+'item.id'">
+      <nb-icon icon="folder-add-outline"></nb-icon>{{item.folderName}}
+
+    <h4 [id]="'collapseTwo'+'item.id'" class="collapse hide mt-2 cursor"  data-parent="#accordion" [attr.aria-labelledby]="'headingTwo'+'item.id'" (click)="addNewFile(item.id)"><nb-icon icon="plus-outline"></nb-icon>add new file</h4>
+    <nb-form-field id="addFileForm" class="addfileForm" [formGroup]="newFileForm">
+      <button nbSuffix nbButton ghost (click)="createNewFile(item.id)">
+        <nb-icon icon="plus-circle-outline"></nb-icon>
+      </button>
+
+      <input nbInput fieldSize="small" formControlName="listName" class="w10" placeholder="new file">
+    </nb-form-field>
+
+    <div class="col">
+      <!-- <h4>{{item.lists[i].listName}}</h4> -->
+    </div>
+
+    </h4>
+
+  </div>
+</div>

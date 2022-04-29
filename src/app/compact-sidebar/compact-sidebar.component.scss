@@ -1,1 +1,22 @@
+nb-icon{
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 25px;
 
+}
+nb-icon:hover{
+ border-radius: 5px;
+  background-color: blue;
+  color: white;
+  transition: 0.5s;
+  align-items: center;
+  justify-content: center;
+}
+.hr{
+  width: 30px;
+  height: 30px;
+
+}
+.main-container-fixed{
+  top:0px !important
+}
