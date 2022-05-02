@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NbMenuItem, NbMenuService  } from '@nebular/theme';
-import { AddTodoListComponent } from "../add-todo-list/add-todo-list.component";
+import { CommonServicesService } from "../common-services.service";
+
 import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms";
+
 @Component({
   selector: 'app-main-sidebar',
   templateUrl: './main-sidebar.component.html',
@@ -18,9 +20,10 @@ export class MainSidebarComponent implements OnInit {
   everyThing:any;
   myObj: any;
   addFileForm: any;
-  newFile:any=[];
-  newToDos:any=[];
-  constructor(private fb: FormBuilder) {
+
+
+  showNewFile: any=[];
+  constructor(private fb: FormBuilder, public commanServices: CommonServicesService) {
 
    }
 
@@ -31,14 +34,14 @@ export class MainSidebarComponent implements OnInit {
     this.newFolderForm = this.fb.group({
       'id': new FormControl(Math.floor(Math.random() * 900000).toString()),
       "folderName": new FormControl(),
-      "lists": new FormControl(this.newFile)
+      "lists":    new FormControl(),
 
     });
 
     this.newFileForm = this.fb.group({
-      'id': new FormControl(Math.floor(Math.random() * 900000).toString()),
+      'id': new FormControl(),
       'listName': new FormControl(),
-      'todos':new FormControl(this.newToDos),
+      'todos':new FormControl(),
     })
     this.showFolders();
     this.showFile();
@@ -64,7 +67,7 @@ export class MainSidebarComponent implements OnInit {
     this.myObj = {
       id: this.newFolderForm.value.id,
       folderName: this.newFolderForm.value.folderName,
-      lists: this.newFolderForm.value.lists
+
     }
     this.folders.push(this.myObj)
     localStorage.setItem("EveryThing", JSON.stringify(this.folders));
@@ -82,10 +85,16 @@ export class MainSidebarComponent implements OnInit {
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
     for (let i = 0; i < this.folders.length; i++) {
-     console.log(this.folders[i]);
+      for (let j = 0; j < this.folders[i].lists.length; j++) {
+        // console.log(this.folders[i].lists[j]);
+        this.showNewFile = this.folders[i].lists
+
+      }
+      // console.log(this.showNewFile);
 
 
     }
+
   }
 
   addNewFile(i){
@@ -96,28 +105,36 @@ export class MainSidebarComponent implements OnInit {
   }
 
   createNewFile(i){
-    console.log('file created',i);
+
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing);
-    console.log('folder',this.folders);
-
-    for (let index = 0; index < this.folders.length; index++) {
-
-      if (this.folders[index].id == i) {
-
-          this.myObj ={
-            id: this.newFileForm.value.id,
-            listName: this.newFileForm.value.listName,
-            todos: this.newFileForm.value.todos
-          }
-
-          this.newFile.push(this.myObj)
-          this.folders[index].lists.push(this.newFile)
 
 
-          localStorage.setItem("EveryThing", JSON.stringify(this.folders));
-        }
+    if(this.folders[i].lists == undefined){
+      this.folders[i].lists =[]
     }
+
+     this.folders[i].lists.push({
+        id: Math.floor(Math.random() * 900000).toString(),
+        listName: this.newFileForm.value.listName,
+      })
+
+
+      localStorage.setItem('EveryThing',JSON.stringify(this.folders))
+
+
+
+  }
+
+  getId(id,listName){
+   this.commanServices.getId(id).subscribe((res)=>{
+     console.log(res);
+     console.log(listName);
+
+    localStorage.setItem('fileId',res)
+    localStorage.setItem('listName',listName)
+
+   })
 
   }
 

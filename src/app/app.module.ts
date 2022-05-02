@@ -21,7 +21,7 @@ import { NbThemeModule, NbLayoutModule, NbCardModule, NbButtonModule, NbWindowMo
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CompactSidebarComponent } from './compact-sidebar/compact-sidebar.component';
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
-
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +60,7 @@ import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
     NbFormFieldModule,
     NbSelectModule,
     NbMenuModule.forRoot(),
-
+    MatIconModule
   ],
   providers: [ShowTodoListComponent],
   bootstrap: [AppComponent]

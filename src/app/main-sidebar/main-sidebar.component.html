@@ -23,21 +23,26 @@
   </nb-form-field>
   <div class="col">
 
-    <h4 *ngFor="let item of folders; index as i " data-toggle="collapse" [attr.data-target]="'#collapseTwo'+'item.id'" aria-expanded="true"  [attr.aria-controls]="'collapseTwo'+'item.id'">
+    <h4 *ngFor="let item of folders; index as i " data-toggle="collapse" [attr.data-target]="'#collapseTwo'+'item.id'"
+      aria-expanded="true" [attr.aria-controls]="'collapseTwo'+'item.id'">
       <nb-icon icon="folder-add-outline"></nb-icon>{{item.folderName}}
 
-    <h4 [id]="'collapseTwo'+'item.id'" class="collapse hide mt-2 cursor"  data-parent="#accordion" [attr.aria-labelledby]="'headingTwo'+'item.id'" (click)="addNewFile(item.id)"><nb-icon icon="plus-outline"></nb-icon>add new file</h4>
-    <nb-form-field id="addFileForm" class="addfileForm" [formGroup]="newFileForm">
-      <button nbSuffix nbButton ghost (click)="createNewFile(item.id)">
-        <nb-icon icon="plus-circle-outline"></nb-icon>
-      </button>
+      <h4 [id]="'collapseTwo'+'item.id'" class="collapse hide mt-2 cursor" data-parent="#accordion"
+        [attr.aria-labelledby]="'headingTwo'+'item.id'" (click)="addNewFile(item.id)">
+        <nb-icon icon="plus-outline"></nb-icon>add new file
+      </h4>
+      <nb-form-field id="addFileForm" class="addfileForm" [formGroup]="newFileForm">
+        <button nbSuffix nbButton ghost (click)="createNewFile(i)">
+          <nb-icon icon="plus-circle-outline"></nb-icon>
+        </button>
 
-      <input nbInput fieldSize="small" formControlName="listName" class="w10" placeholder="new file">
-    </nb-form-field>
+        <input nbInput fieldSize="small" formControlName="listName" class="w10" placeholder="new file">
+      </nb-form-field>
 
-    <div class="col">
-      <!-- <h4>{{item.lists[i].listName}}</h4> -->
-    </div>
+      <div class="col" *ngFor="let item1 of showNewFile">
+        <h4 routerLink="add-ToDoList" (click)="getId(item1.id,item1.listName)"><nb-icon icon="file-text-outline"></nb-icon>{{item1.listName}}</h4>
+
+      </div>
 
     </h4>
 
