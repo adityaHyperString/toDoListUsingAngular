@@ -1,0 +1,40 @@
+<div class="modal-content" [formGroup]="discriptionForm">
+<div class=" modal-header  mb-2 mr-1">
+  <div class="row col-md-6">
+    <h2>INSIDE >> {{fileName}}</h2>
+  </div>
+  <div class="col-md-5"></div>
+  <div class="col-md-1">
+
+    <button class="btn btn-danger btn-sm" (click)="onClose()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<div class=" modal-body col-md-12">
+<div class="row" *ngIf="flagId==1">
+    <mat-form-field class="example-full-width col-md-12" appearance="outline">
+      <mat-label>TASK NAME</mat-label>
+      <input matInput placeholder="TASK NAME" value="{{todoName}}" disabled>
+    </mat-form-field>
+      <mat-form-field class="example-full-width col-md-12" appearance="outline">
+        <mat-label>Discription</mat-label>
+        <textarea matInput rows="3" placeholder="Add Discription..." formControlName="discription"></textarea>
+      </mat-form-field>
+</div>
+<div class="row" *ngIf="flagId==0">
+  <mat-form-field class="example-full-width col-md-12" appearance="outline">
+    <mat-label>TASK NAME</mat-label>
+    <input matInput placeholder="TASK NAME" formControlName="name" value="{{todoName}}">
+  </mat-form-field>
+    <mat-form-field class="example-full-width col-md-12" appearance="outline">
+      <mat-label>Discription</mat-label>
+      <textarea matInput rows="3" placeholder="Add Discription..." formControlName="discription"></textarea>
+    </mat-form-field>
+</div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+  <button *ngIf="flagId==1" type="button" class="btn btn-primary" (click)="save()">Save</button>
+  <button *ngIf="flagId==0" type="button" class="btn btn-primary" (click)="editToDo()">Edit</button>
+</div>
+</div>

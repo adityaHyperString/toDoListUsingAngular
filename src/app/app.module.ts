@@ -22,6 +22,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CompactSidebarComponent } from './compact-sidebar/compact-sidebar.component';
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
 import {MatIconModule} from '@angular/material/icon';
+import { ShowTodosComponent } from './show-todos/show-todos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,9 @@ import {MatIconModule} from '@angular/material/icon';
     FilterPipe,
     ConfirmBoxComponent,
     CompactSidebarComponent,
-    MainSidebarComponent
+    MainSidebarComponent,
+    ShowTodosComponent,
+
   ],
   imports: [
     BrowserModule,

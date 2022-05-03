@@ -83,21 +83,28 @@
       <table class="table">
         <thead class="thead-light">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Serial No
+            </th>
             <th scope="col">TASKS NAME</th>
             <th scope="col">ACTIONS</th>
-            <!-- <th scope="col">PRIORITY</th> -->
+
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of toDos;index as i">
-            <th scope="row">{{i+1}}</th>
-            <td>{{item.name}}</td>
+            <th scope="row">
+              {{i+1}}
+            </th>
+            <td class="cursor" (click)="openTask(item.id,i)"  matTooltip="Click To Add Discription">
+
+              {{item.name}}
+
+            </td>
             <td>
               <span><i class="fa-solid fa-trash-can ml-3 cursor" (click)="deleteToDo(item.id,i)" matTooltip="Delete todo" ></i></span>
-              <span><i class="fa-solid fa-pen-to-square  ml-2 cursor"   matTooltip="Edit note"></i></span>
+              <span><i class="fa-solid fa-pen-to-square  ml-2 cursor" matTooltip="Edit note" (click)="editToDo(item.id,i)"></i></span>
             </td>
-            <!-- <td>@mdo</td> -->
+
           </tr>
 
         </tbody>
