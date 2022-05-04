@@ -40,7 +40,9 @@
       </nb-form-field>
 
       <div class="col" *ngFor="let item1 of showNewFile">
-        <h4 routerLink="add-ToDoList" (click)="getId(item1.id,item1.listName)"><nb-icon icon="file-text-outline"></nb-icon>{{item1.listName}}</h4>
+        <h4 routerLink="add-ToDoList" (click)="getId(item1.id,item1.listName)">
+          <nb-icon icon="file-text-outline"></nb-icon>{{item1.listName}}
+        </h4>
 
       </div>
 

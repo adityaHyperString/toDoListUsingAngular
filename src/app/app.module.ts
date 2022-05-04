@@ -17,11 +17,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FilterPipe } from './appPipes/filter.pipe';
 import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbButtonModule, NbWindowModule, NbTabsetModule, NbSidebarModule,NbIconModule,NbListModule,NbActionsModule,NbInputModule,NbFormFieldModule,  NbSelectModule,NbMenuModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbButtonModule, NbWindowModule, NbTabsetModule, NbSidebarModule, NbIconModule, NbListModule, NbActionsModule, NbInputModule, NbFormFieldModule, NbSelectModule, NbMenuModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CompactSidebarComponent } from './compact-sidebar/compact-sidebar.component';
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { ShowTodosComponent } from './show-todos/show-todos.component';
 
 @NgModule({
@@ -66,7 +66,7 @@ import { ShowTodosComponent } from './show-todos/show-todos.component';
     NbMenuModule.forRoot(),
     MatIconModule
   ],
-  providers: [ShowTodoListComponent],
+  providers: [AddTodoListComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

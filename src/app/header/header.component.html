@@ -1,9 +1,10 @@
+<li class="nav-item d-flex d-inline-flex">
 
-      <li class="nav-item d-flex d-inline-flex">
-        <!-- <a class="nav-link mr-2" routerLink="add-ToDoList"><nb-icon nbPrefix icon="list-outline" class="mr-1" pack="eva"></nb-icon>List</a> -->
-        <a class="nav-link mr-2" routerLink="show-ToDoList"><nb-icon nbPrefix icon="map-outline" class="mr-1" pack="eva"></nb-icon>Board</a>
+  <div class="main">
+    <div class="form-group has-search" [formGroup]="searchForm">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input type="text" class="form-control" formControlName="searchElement" (keyup)="onKeyUpSearch($event)" placeholder="Search">
 
-      </li>
-
-
-
+    </div>
+  </div>
+</li>

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CommonServicesService } from "../common-services.service";
+import { AddTodoListComponent } from "../add-todo-list/add-todo-list.component";
+// import { timeStamp } from 'console';
 
 
 @Component({
@@ -11,46 +14,29 @@ export class HeaderComponent implements OnInit {
   search: any;
   searchForm: FormGroup;
   notesObj: any = [];
-  txtSearch: string = '';
-  constructor(private fb: FormBuilder,) { }
-
+  txtSearch: any;
+  @ViewChild('childComponent', { static: false }) childComponent: AddTodoListComponent;
+  constructor(private fb: FormBuilder, public commonService: CommonServicesService) { }
+  txt: string;
 
 
   ngOnInit(): void {
-
+    this.commonService.currentSearchText.subscribe(txt => this.txt = txt)
     this.searchForm = this.fb.group({
 
-      "searchTxt": new FormControl(''),
+      "searchElement": new FormControl(''),
 
     });
 
 
   }
 
-  onKeyUpSearch() {
-    console.log('inside search');
 
-    let searchField = this.searchForm.get('searchTxt').value.toLowerCase();
-    console.log(searchField);
-
-    let getNotes = localStorage.getItem('notes')
-    this.notesObj = JSON.parse(getNotes)
-    console.log(this.notesObj[0].title);
-    for (let i = 0; i <= this.notesObj.length - 1; i++) {
-
-      if (searchField == this.notesObj[i].title.toLowerCase()) {
-        console.log('match');
-
-      }
-      //  else {
-      //   console.log('Not match');
-      // }
-    }
-
-
-
-
-
+  onKeyUpSearch(event: any) {
+    this.txtSearch = this.searchForm.value.searchElement
+    this.commonService.changeSearchText(this.txtSearch)
   }
+
+
 
 }

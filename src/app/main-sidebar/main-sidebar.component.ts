@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { NbMenuItem, NbMenuService  } from '@nebular/theme';
+import { NbMenuItem, NbMenuService } from '@nebular/theme';
 import { CommonServicesService } from "../common-services.service";
 
 import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms";
@@ -16,32 +16,30 @@ export class MainSidebarComponent implements OnInit {
   addFolderForm: any;
   newFolderForm: FormGroup;
   newFileForm: FormGroup;
-  folders:any=[];
-  everyThing:any;
+  folders: any = [];
+  everyThing: any;
   myObj: any;
   addFileForm: any;
 
 
-  showNewFile: any=[];
+  showNewFile: any = [];
   constructor(private fb: FormBuilder, public commanServices: CommonServicesService) {
 
-   }
+  }
 
 
 
   ngOnInit(): void {
-
     this.newFolderForm = this.fb.group({
       'id': new FormControl(Math.floor(Math.random() * 900000).toString()),
       "folderName": new FormControl(),
-      "lists":    new FormControl(),
+      "lists": new FormControl(),
 
     });
-
     this.newFileForm = this.fb.group({
       'id': new FormControl(),
       'listName': new FormControl(),
-      'todos':new FormControl(),
+      'todos': new FormControl(),
     })
     this.showFolders();
     this.showFile();
@@ -49,21 +47,19 @@ export class MainSidebarComponent implements OnInit {
   }
 
 
-  addSpace(){
+  addSpace() {
     console.log('inside addlist');
     this.addFolderForm = document.getElementById('addFolderForm');
     this.addFolderForm.style.display = 'flex'
   }
 
-  createNewFolder(){
+  createNewFolder() {
     this.everyThing = localStorage.getItem('EveryThing')
-    if ( this.everyThing == null) {
+    if (this.everyThing == null) {
       this.folders = [];
-  } else {
-    this.folders = JSON.parse(this.everyThing);
-  }
-
-
+    } else {
+      this.folders = JSON.parse(this.everyThing);
+    }
     this.myObj = {
       id: this.newFolderForm.value.id,
       folderName: this.newFolderForm.value.folderName,
@@ -74,67 +70,45 @@ export class MainSidebarComponent implements OnInit {
 
   }
 
-  showFolders(){
-
+  showFolders() {
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
-
   }
 
-  showFile(){
+  showFile() {
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
     for (let i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
-        // console.log(this.folders[i].lists[j]);
         this.showNewFile = this.folders[i].lists
-
       }
-      // console.log(this.showNewFile);
-
-
     }
-
   }
 
-  addNewFile(i){
-    console.log('inside add new file',i);
+  addNewFile(i) {
     this.addFileForm = document.getElementById('addFileForm');
-    this.addFileForm.style.display="flex"
-
+    this.addFileForm.style.display = "flex"
   }
 
-  createNewFile(i){
-
+  createNewFile(i) {
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing);
-
-
-    if(this.folders[i].lists == undefined){
-      this.folders[i].lists =[]
+    if (this.folders[i].lists == undefined) {
+      this.folders[i].lists = []
     }
-
-     this.folders[i].lists.push({
-        id: Math.floor(Math.random() * 900000).toString(),
-        listName: this.newFileForm.value.listName,
-      })
-
-
-      localStorage.setItem('EveryThing',JSON.stringify(this.folders))
-
-
-
+    this.folders[i].lists.push({
+      id: Math.floor(Math.random() * 900000).toString(),
+      listName: this.newFileForm.value.listName,
+    })
+    localStorage.setItem('EveryThing', JSON.stringify(this.folders))
   }
 
-  getId(id,listName){
-   this.commanServices.getId(id).subscribe((res)=>{
-     console.log(res);
-     console.log(listName);
+  getId(id, listName) {
+    this.commanServices.getId(id).subscribe((res) => {
+      localStorage.setItem('fileId', res)
+      localStorage.setItem('listName', listName)
 
-    localStorage.setItem('fileId',res)
-    localStorage.setItem('listName',listName)
-
-   })
+    })
 
   }
 

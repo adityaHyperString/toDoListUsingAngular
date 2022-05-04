@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms";
-import { ShowTodoListComponent } from "../show-todo-list/show-todo-list.component";
-import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CommonServicesService } from "../common-services.service";
 import { ConfirmBoxComponent } from "../confirm-box/confirm-box.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,13 +14,12 @@ import { ShowTodosComponent } from "../show-todos/show-todos.component";
   styleUrls: ['./add-todo-list.component.scss']
 })
 export class AddTodoListComponent implements OnInit {
-  @ViewChild('childComponent', { static: false }) childComponent: ShowTodoListComponent;
+
   addBtn: any;
   notesObj: any = [];
   myObj: any;
   getData: any;
   toDoForm: FormGroup;
-  // dialog: any
   inputVariable: any = [];
   folders: any = [];
   everyThing: any;
@@ -29,6 +27,7 @@ export class AddTodoListComponent implements OnInit {
   toDos: any = [];
   todosLength: any;
   listName: string;
+  txt: string
   @ViewChild('confirmBox', { static: false }) confirmBox: ConfirmBoxComponent;
   deletedData: any = [];
 
@@ -37,34 +36,26 @@ export class AddTodoListComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.commonServices.currentSearchText.subscribe(txt => this.txt = txt)
     this.toDoForm = this.fb.group({
       'id': new FormControl(),
       "name": new FormControl(),
       "discription": new FormControl(),
-
     });
-
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
-
     this.showToDos();
 
 
 
   }
 
-
+  //saving todos inside perticular file
   save1(i) {
     this.id = localStorage.getItem('fileId')
-    // console.log(this.id);
-
-
     for (i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
-
         if (this.folders[i].lists[j].id == this.id) {
-
           if (this.folders[i].lists[j].todos == undefined) {
             this.folders[i].lists[j].todos = []
           }
@@ -74,14 +65,12 @@ export class AddTodoListComponent implements OnInit {
           })
         }
       }
-
     }
     localStorage.setItem('EveryThing', JSON.stringify(this.folders))
     this.showToDos();
-
-
   }
 
+  //show todos on page
   showToDos() {
     this.listName = localStorage.getItem('listName')
     this.id = localStorage.getItem('fileId')
@@ -98,21 +87,16 @@ export class AddTodoListComponent implements OnInit {
   clear() {
     this.toDoForm.reset();
   }
+  //open confirm box when we delting item
   openConfirmDialog() {
     return this.dialog.open(ConfirmBoxComponent)
-
   }
 
+  //deleteing perticualar item
   deleteToDo(id, index) {
-    console.log('deleted id', id);
     this.id = localStorage.getItem('fileId')
-    // console.log(this.id);
-    console.log(index);
-
-
     for (let i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
-
         if (this.folders[i].lists[j].id == this.id) {
           this.openConfirmDialog().afterClosed().subscribe(res => {
             if (res) {
@@ -129,15 +113,13 @@ export class AddTodoListComponent implements OnInit {
     this.showToDos();
   }
 
+  //snackbar for undo the deleted data
   openSnackBar() {
     let snackbarRef = this._snackBar.open("Data Deleted!", 'UNDO', {
       duration: 3000,
-
     });
     snackbarRef.onAction().subscribe(() => {
       this.id = localStorage.getItem('fileId')
-      console.log(this.id);
-
       this.deletedData = localStorage.getItem('deletedData');
       this.folders = localStorage.getItem('EveryThing')
       this.deletedData = JSON.parse(this.deletedData)
@@ -146,15 +128,11 @@ export class AddTodoListComponent implements OnInit {
         for (let j = 0; j < this.folders[i].lists.length; j++) {
           if (this.folders[i].lists[j].id == this.id) {
             this.folders[i].lists[j].todos.push({
-
               id: this.deletedData[0].id,
               name: this.deletedData[0].name,
-
             });
             localStorage.setItem('EveryThing', JSON.stringify(this.folders))
-
           }
-
         }
       }
       console.log(this.folders);
@@ -168,28 +146,27 @@ export class AddTodoListComponent implements OnInit {
 
   }
 
-  openTask(id,index){
-
-    let flag=1
-
-
+  //open todo in popup for adding discription
+  openTask(id, index) {
+    let flag = 1
     const dialogConfig = new MatDialogConfig();
     const dialogRref = this.dialog.open(ShowTodosComponent, {
-      data: { itemId:id,
-              flagId:flag
-            },
+      data: {
+        itemId: id,
+        flagId: flag
+      },
     })
   }
 
-  editToDo(id,index){
-
-    let flag=0
-
+  //edit todo and discription
+  editToDo(id, index) {
+    let flag = 0
     const dialogConfig = new MatDialogConfig();
     const dialogRref = this.dialog.open(ShowTodosComponent, {
-      data: { itemId:id,
-              flagId:flag
-            },
+      data: {
+        itemId: id,
+        flagId: flag
+      },
     })
     dialogRref.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
