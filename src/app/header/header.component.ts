@@ -23,9 +23,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.commonService.currentSearchText.subscribe(txt => this.txt = txt)
     this.searchForm = this.fb.group({
-
       "searchElement": new FormControl(''),
-
     });
 
 

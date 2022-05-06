@@ -16,13 +16,16 @@ export class MainSidebarComponent implements OnInit {
   addFolderForm: any;
   newFolderForm: FormGroup;
   newFileForm: FormGroup;
+  renameForm: FormGroup;
   folders: any = [];
   everyThing: any;
   myObj: any;
   addFileForm: any;
-
-
+  listNameFlag=1
+  newFileName:any;
   showNewFile: any = [];
+  deletedFile: any=[];
+
   constructor(private fb: FormBuilder, public commanServices: CommonServicesService) {
 
   }
@@ -40,6 +43,9 @@ export class MainSidebarComponent implements OnInit {
       'id': new FormControl(),
       'listName': new FormControl(),
       'todos': new FormControl(),
+    })
+    this.renameForm = this.fb.group({
+      'renameList' : new FormControl()
     })
     this.showFolders();
     this.showFile();
@@ -83,6 +89,8 @@ export class MainSidebarComponent implements OnInit {
         this.showNewFile = this.folders[i].lists
       }
     }
+
+
   }
 
   addNewFile(i) {
@@ -101,6 +109,7 @@ export class MainSidebarComponent implements OnInit {
       listName: this.newFileForm.value.listName,
     })
     localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+    this.showFile();
   }
 
   getId(id, listName) {
@@ -109,7 +118,59 @@ export class MainSidebarComponent implements OnInit {
       localStorage.setItem('listName', listName)
 
     })
+  }
 
+renameFile(index,id,event:any){
+  let target = event.target.parentNode.parentNode.parentNode.previousSibling.firstChild
+  target.contentEditable = "true";
+
+
+  let interVel=setInterval(()=>{
+    target.contentEditable="false"
+    this.newFileName = target.innerText
+    for (let i = 0; i < this.folders.length; i++) {
+      for (let j = 0; j < this.folders[i].lists.length; j++) {
+        if (this.folders[i].lists[j].id==id) {
+          this.folders[i].lists[j].listName = this.newFileName
+          // console.log(this.folders[i].lists[j]);
+          localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+        }
+
+      }
+
+    }
+
+  },8000)
+  setTimeout(() => {
+
+    clearInterval(interVel);
+    this.ngOnInit();
+  }, 10000);
+
+}
+
+
+
+
+  deleteFile(index,id){
+    console.log('in deltt',id);
+    this.everyThing = localStorage.getItem('EveryThing')
+    this.folders = JSON.parse(this.everyThing)
+    for (let i = 0; i < this.folders.length; i++) {
+     for (let j = 0; j < this.folders[i].lists.length; j++) {
+       if (this.folders[i].lists[j].id == id) {
+        this.deletedFile = this.folders[i].lists.splice(index, 1);
+       console.log(this.deletedFile);
+
+       }
+
+
+     }
+
+    }
+    console.log(this.folders);
+    localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+    this.showFile();
   }
 
 }

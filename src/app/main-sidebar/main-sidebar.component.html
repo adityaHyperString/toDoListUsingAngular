@@ -3,11 +3,13 @@
 
 
 
-<h4 class="mb-0 cursor" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+<h4 class="mb-0 cursor mainFolder" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
   aria-controls="collapseOne">
 
+  <nb-icon icon="arrow-ios-forward-outline" class="myIcon"></nb-icon>
+  <i class="fa-solid fa-folder" ></i>
+  <i class="fa-solid fa-folder-open" ></i>
   Everything
-  <nb-icon icon="arrow-ios-downward-outline"></nb-icon>
 </h4>
 
 <div id="collapseOne" class="collapse hide mt-2 cursor" aria-labelledby="headingOne" data-parent="#accordion">
@@ -39,9 +41,38 @@
         <input nbInput fieldSize="small" formControlName="listName" class="w10" placeholder="new file">
       </nb-form-field>
 
-      <div class="col" *ngFor="let item1 of showNewFile">
-        <h4 routerLink="add-ToDoList" (click)="getId(item1.id,item1.listName)">
-          <nb-icon icon="file-text-outline"></nb-icon>{{item1.listName}}
+      <div class="col" *ngFor="let item1 of showNewFile;index as i">
+        <h4 routerLink="add-ToDoList" (click)="getId(item1.id,item1.listName)" >
+          <div class="row">
+            <div class="col-md-1">
+
+              <nb-icon icon="file-text-outline" id="icon"></nb-icon>
+            </div>
+            <div class="col-md-7">
+              <span id="span" class="col-md-8">
+                {{item1.listName}}
+              </span>
+            </div>
+            <div class="col-md-3">
+              <div class="btn-group">
+                <button type="button" class="btn btn-info btn-sm btn1 " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{item1.todos.length}}
+
+                </button>
+                <div class="dropdown-menu">
+
+                  <a class="dropdown-item" (click)="deleteFile(i,item1.id)">Delete</a>
+                  <a class="dropdown-item" (click)="renameFile(i,item1.id,$event)">Rename</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+
         </h4>
 
       </div>

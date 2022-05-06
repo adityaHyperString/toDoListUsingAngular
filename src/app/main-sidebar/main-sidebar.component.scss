@@ -10,8 +10,32 @@
 .cursor{
   cursor: pointer;
 }
-h4 :hover{
-  background-color: blue;
-  color:white;
+.btn1{
+  height: 28px;
   border-radius: 5px;
+
+}
+
+.w20{
+  width: 50px;
+}
+.height{
+  height: 5% !important;
+}
+.fa-solid{
+  color: rgb(180, 180, 224);
+
+ }
+.fa-folder-open{
+  display: none;
+}
+.mainFolder[aria-expanded=true] .myIcon {
+  transition: .3s transform ease-in-out;
+  transform: rotate(90deg);
+ }
+.mainFolder[aria-expanded=true] .fa-folder{
+  display: none;
+}
+.mainFolder[aria-expanded=true] .fa-folder-open{
+ display: inline-block;
 }

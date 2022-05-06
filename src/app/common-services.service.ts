@@ -16,5 +16,7 @@ export class CommonServicesService {
 
   changeSearchText(txt: string) {
     this.searchText.next(txt)
+
+
   }
 }

@@ -7,6 +7,7 @@ import { CommonServicesService } from "../common-services.service";
 import { ConfirmBoxComponent } from "../confirm-box/confirm-box.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShowTodosComponent } from "../show-todos/show-todos.component";
+import { Observable, of, BehaviorSubject } from "rxjs";
 
 @Component({
   selector: 'app-add-todo-list',
@@ -78,7 +79,12 @@ export class AddTodoListComponent implements OnInit {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         if (this.folders[i].lists[j].id == this.id) {
           this.toDos = this.folders[i].lists[j].todos
-          this.todosLength = this.toDos.length
+          if (this.todosLength == undefined ) {
+            this.todosLength = 0
+          } else {
+            this.todosLength = this.toDos.length
+          }
+
         }
       }
     }
