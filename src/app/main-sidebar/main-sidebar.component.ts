@@ -26,6 +26,7 @@ export class MainSidebarComponent implements OnInit {
   showNewFile: any = [];
   deletedFile: any=[];
 
+
   constructor(private fb: FormBuilder, public commanServices: CommonServicesService) {
 
   }
@@ -87,6 +88,8 @@ export class MainSidebarComponent implements OnInit {
     for (let i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         this.showNewFile = this.folders[i].lists
+
+
       }
     }
 

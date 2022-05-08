@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShowTodosComponent } from "../show-todos/show-todos.component";
 import { Observable, of, BehaviorSubject } from "rxjs";
 
+
 @Component({
   selector: 'app-add-todo-list',
   templateUrl: './add-todo-list.component.html',
@@ -69,6 +70,7 @@ export class AddTodoListComponent implements OnInit {
     }
     localStorage.setItem('EveryThing', JSON.stringify(this.folders))
     this.showToDos();
+    this.clear();
   }
 
   //show todos on page
@@ -79,10 +81,10 @@ export class AddTodoListComponent implements OnInit {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         if (this.folders[i].lists[j].id == this.id) {
           this.toDos = this.folders[i].lists[j].todos
-          if (this.todosLength == undefined ) {
-            this.todosLength = 0
-          } else {
+          try {
             this.todosLength = this.toDos.length
+          } catch (error) {
+            this.todosLength = 0
           }
 
         }

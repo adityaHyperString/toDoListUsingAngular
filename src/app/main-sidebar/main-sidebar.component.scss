@@ -1,9 +1,7 @@
 .addFolderForm{
   display: none;
 }
-.addfileForm{
-  display: none;
-}
+
 .newFile{
   display: none;
 }
@@ -26,16 +24,34 @@
   color: rgb(180, 180, 224);
 
  }
-.fa-folder-open{
+.folder2 , .folder4{
   display: none;
 }
-.mainFolder[aria-expanded=true] .myIcon {
+.mainFolder[aria-expanded=true] .myIcon1 {
   transition: .3s transform ease-in-out;
   transform: rotate(90deg);
  }
-.mainFolder[aria-expanded=true] .fa-folder{
+.mainFolder[aria-expanded=true] .folder1{
   display: none;
 }
-.mainFolder[aria-expanded=true] .fa-folder-open{
+.mainFolder[aria-expanded=true] .folder2{
  display: inline-block;
 }
+.subFolder[aria-expanded=true] .myIcon2 {
+  transition: .3s transform ease-in-out;
+  transform: rotate(90deg);
+ }
+ .subFolder[aria-expanded=true] .folder3{
+  display: none;
+}
+.subFolder[aria-expanded=true] .folder4{
+ display: inline-block;
+}
+.subFile[aria-expanded=true] .plus2 {
+  transition: .3s transform ease-in-out;
+  transform: rotate(45deg);
+ }
+.addFolder[aria-expanded=true] .plus1 {
+  transition: .3s transform ease-in-out;
+  transform: rotate(45deg);
+ }
