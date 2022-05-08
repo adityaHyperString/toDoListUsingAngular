@@ -29,10 +29,24 @@
 
     <div *ngFor="let item of folders; index as i"  >
       <span type="button" class="subFolder" data-toggle="collapse" data-target="#insideDiv" aria-expanded="false" aria-controls="insideDiv">
-        <nb-icon icon="arrow-ios-forward-outline" class="myIcon2"></nb-icon>
-        <i class="fa-solid fa-folder-closed folder3"></i>
-        <i class="fa-solid fa-folder-open folder4"></i>
-        {{item.folderName}}
+        <div class="row">
+          <div class="col-md-9">
+            <nb-icon icon="arrow-ios-forward-outline" class="myIcon2"></nb-icon>
+            <i class="fa-solid fa-folder-closed folder3"></i>
+            <i class="fa-solid fa-folder-open folder4"></i>
+            {{item.folderName}}
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" class="btn btn-info btn-sm btn1 " data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            {{item.lists.length}}
+
+          </button>
+          </div>
+        </div>
+
+
       </span>
 
       <div  class="collapse mt-2 cursor" id="insideDiv">
