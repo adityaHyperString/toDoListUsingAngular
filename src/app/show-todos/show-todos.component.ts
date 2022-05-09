@@ -15,6 +15,7 @@ export class ShowTodosComponent implements OnInit {
   todoName: any;
   discriptn: string;
   flagId: any;
+  folderName: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data,
     private dialog: MatDialog,
     private fb: FormBuilder,) { }
@@ -36,6 +37,7 @@ export class ShowTodosComponent implements OnInit {
     for (let i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         if (this.folders[i].lists[j].id == this.fileId) {
+          this.folderName = this.folders[i].folderName
           this.fileName = this.folders[i].lists[j].listName
           for (let k = 0; k < this.folders[i].lists[j].todos.length; k++) {
             if (this.folders[i].lists[j].todos[k].id == this.data.itemId) {

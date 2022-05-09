@@ -1,3 +1,4 @@
+
 .addFolderForm{
   display: none;
 }
@@ -54,4 +55,7 @@
 .addFolder[aria-expanded=true] .plus1 {
   transition: .3s transform ease-in-out;
   transform: rotate(45deg);
+ }
+ .fileIcon{
+   color:  rgb(180, 180, 224);;
  }

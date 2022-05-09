@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
+
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators, FormBuilder, } from "@angular/forms";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { CommonServicesService } from "../common-services.service";
 import { ConfirmBoxComponent } from "../confirm-box/confirm-box.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShowTodosComponent } from "../show-todos/show-todos.component";
-import { Observable, of, BehaviorSubject } from "rxjs";
+
 
 
 @Component({
@@ -16,7 +16,7 @@ import { Observable, of, BehaviorSubject } from "rxjs";
   styleUrls: ['./add-todo-list.component.scss']
 })
 export class AddTodoListComponent implements OnInit {
-
+  data: any;
   addBtn: any;
   notesObj: any = [];
   myObj: any;
@@ -33,11 +33,16 @@ export class AddTodoListComponent implements OnInit {
   @ViewChild('confirmBox', { static: false }) confirmBox: ConfirmBoxComponent;
   deletedData: any = [];
 
-  constructor(private fb: FormBuilder, public commonServices: CommonServicesService, private dialog: MatDialog, public _snackBar: MatSnackBar) { }
+  constructor(private fb: FormBuilder, public commonServices: CommonServicesService, private dialog: MatDialog, public _snackBar: MatSnackBar) {
+    this.commonServices.getClickEvent().subscribe(()=>{
+      this.showToDos();
+    })
+  }
 
 
 
   ngOnInit(): void {
+
     this.commonServices.currentSearchText.subscribe(txt => this.txt = txt)
     this.toDoForm = this.fb.group({
       'id': new FormControl(),
@@ -47,20 +52,15 @@ export class AddTodoListComponent implements OnInit {
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
     this.showToDos();
-
-
-
   }
 
   //saving todos inside perticular file
   save1(i) {
+
     this.id = localStorage.getItem('fileId')
     for (i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         if (this.folders[i].lists[j].id == this.id) {
-          if (this.folders[i].lists[j].todos == undefined) {
-            this.folders[i].lists[j].todos = []
-          }
           this.folders[i].lists[j].todos.push({
             id: Math.floor(Math.random() * 900000).toString(),
             name: this.toDoForm.value.name,
@@ -71,21 +71,20 @@ export class AddTodoListComponent implements OnInit {
     localStorage.setItem('EveryThing', JSON.stringify(this.folders))
     this.showToDos();
     this.clear();
+
   }
 
   //show todos on page
   showToDos() {
+    this.everyThing = localStorage.getItem('EveryThing')
+    this.folders = JSON.parse(this.everyThing)
     this.listName = localStorage.getItem('listName')
     this.id = localStorage.getItem('fileId')
     for (let i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         if (this.folders[i].lists[j].id == this.id) {
           this.toDos = this.folders[i].lists[j].todos
-          try {
-            this.todosLength = this.toDos.length
-          } catch (error) {
-            this.todosLength = 0
-          }
+          this.todosLength = this.toDos.length
 
         }
       }

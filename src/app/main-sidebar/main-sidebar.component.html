@@ -1,4 +1,5 @@
-<h4>Favorites</h4>
+
+<h4 class="fav">Favorites</h4>
 
 
 
@@ -12,11 +13,12 @@
   Everything
 </h4>
 
-<div id="collapseOne" class="collapse hide mt-2 cursor" aria-labelledby="headingOne" >
-  <h4 class="addFolder" type="button" data-toggle="collapse" data-target="#addSpace" aria-expanded="false" aria-controls="addSpace">
+<div id="collapseOne" class="collapse hide mt-2 cursor" aria-labelledby="headingOne">
+  <h4 class="addFolder" type="button" data-toggle="collapse" data-target="#addSpace" aria-expanded="false"
+    aria-controls="addSpace">
     <nb-icon icon="plus-outline" class="plus1"></nb-icon>Add Space
   </h4>
-  <div class="col collapse"  id="addSpace">
+  <div class="col collapse" id="addSpace">
     <nb-form-field [formGroup]="newFolderForm">
       <button nbSuffix nbButton ghost (click)="createNewFolder()">
         <nb-icon icon="plus-circle-outline"></nb-icon>
@@ -27,34 +29,41 @@
   </div>
   <div class="col mt-2">
 
-    <div *ngFor="let item of folders; index as i"  >
-      <span type="button" class="subFolder" data-toggle="collapse" data-target="#insideDiv" aria-expanded="false" aria-controls="insideDiv">
+    <div *ngFor="let item of folders; index as i">
+      <span type="button" class="subFolder" data-toggle="collapse" [attr.data-target]="'#insideDiv'+'i'"
+        aria-expanded="false" [attr.aria-controls]="'insideDiv'+'i'">
         <div class="row">
           <div class="col-md-9">
             <nb-icon icon="arrow-ios-forward-outline" class="myIcon2"></nb-icon>
             <i class="fa-solid fa-folder-closed folder3"></i>
             <i class="fa-solid fa-folder-open folder4"></i>
-            {{item.folderName}}
+           <span> {{item.folderName}} </span>
           </div>
 
           <div class="col-md-3">
-            <button type="button" class="btn btn-info btn-sm btn1 " data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-            {{item.lists.length}}
-
-          </button>
+            <div class="btn-group">
+              <button type="button" class="btn btn-info btn-sm btn1 ml-3"  data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+                {{item.lists.length}}
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="deleteFolder(item.id,i)">Delete</a>
+                <a class="dropdown-item" (click)="renameFolder(item.id,$event)">Rename</a>
+              </div>
+            </div>
           </div>
         </div>
 
 
       </span>
 
-      <div  class="collapse mt-2 cursor" id="insideDiv">
-        <h4 class="subFile" data-toggle="collapse" href="#collapse11" role="button" aria-expanded="false" aria-controls="collapse11">
+      <div class="collapse mt-2 cursor" [id]="'insideDiv'+'i'">
+        <h4 class="subFile" data-toggle="collapse" [attr.data-target]="'#collapse11'+'item.id'" role="button"
+          aria-expanded="false" [attr.aria-controls]="'collapse11'+'item.id'">
           <nb-icon icon="plus-outline" class="plus2"></nb-icon>add new file
 
         </h4>
-        <div class="col collapse" id="collapse11">
+        <div class="col collapse" [id]="'collapse11'+'item.id'">
           <nb-form-field [formGroup]="newFileForm">
             <button nbSuffix nbButton ghost (click)="createNewFile(i)">
               <nb-icon icon="plus-circle-outline"></nb-icon>
@@ -64,16 +73,17 @@
           </nb-form-field>
         </div>
 
-        <div class="col mt-2" *ngFor="let item1 of showNewFile;index as i">
+        <div class="col mt-2" *ngFor="let item1 of showNewFile;index as j">
           <h4 routerLink="add-ToDoList" (click)="getId(item1.id,item1.listName)">
             <div class="row">
               <div class="col-md-1">
 
-                <nb-icon icon="file-text-outline" id="icon"></nb-icon>
+                <nb-icon icon="file-text-outline" class="fileIcon" id="icon"></nb-icon>
               </div>
               <div class="col-md-7">
                 <span id="span" class="col-md-8">
                   {{item1.listName}}
+
                 </span>
               </div>
               <div class="col-md-3">
@@ -105,3 +115,4 @@
   </div>
 
 </div>
+
