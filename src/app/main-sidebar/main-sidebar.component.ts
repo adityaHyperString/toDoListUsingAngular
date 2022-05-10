@@ -21,13 +21,14 @@ export class MainSidebarComponent implements OnInit {
   everyThing: any;
   myObj: any;
   addFileForm: any;
-  listNameFlag=1
-  newFileName:any;
+  listNameFlag = 1
+  newFileName: any;
   showNewFile: any = [];
-  deletedFile: any=[];
-  dataLength:any
+  deletedFile: any = [];
+  dataLength: any
   deletedFolder: any;
   newFolderName: any;
+
 
   constructor(private fb: FormBuilder, public commanServices: CommonServicesService) {
 
@@ -37,7 +38,7 @@ export class MainSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.newFolderForm = this.fb.group({
-      'id': new FormControl(Math.floor(Math.random() * 900000).toString()),
+      'id': new FormControl(),
       "folderName": new FormControl(),
       "lists": new FormControl(),
 
@@ -48,7 +49,7 @@ export class MainSidebarComponent implements OnInit {
       'todos': new FormControl(),
     })
     this.renameForm = this.fb.group({
-      'renameList' : new FormControl()
+      'renameList': new FormControl()
     })
     this.showFolders();
     this.showFile();
@@ -70,9 +71,9 @@ export class MainSidebarComponent implements OnInit {
       this.folders = JSON.parse(this.everyThing);
     }
     this.myObj = {
-      id: this.newFolderForm.value.id,
+      id: Math.floor(Math.random() * 900000).toString(),
       folderName: this.newFolderForm.value.folderName,
-      lists:[]
+      lists: []
     }
     this.folders.push(this.myObj)
     localStorage.setItem("EveryThing", JSON.stringify(this.folders));
@@ -91,6 +92,8 @@ export class MainSidebarComponent implements OnInit {
     for (let i = 0; i < this.folders.length; i++) {
       for (let j = 0; j < this.folders[i].lists.length; j++) {
         this.showNewFile = this.folders[i].lists
+        console.log(this.showNewFile);
+
       }
     }
 
@@ -109,7 +112,7 @@ export class MainSidebarComponent implements OnInit {
     this.folders[i].lists.push({
       id: Math.floor(Math.random() * 900000).toString(),
       listName: this.newFileForm.value.listName,
-      todos:[]
+      todos: []
     })
     localStorage.setItem('EveryThing', JSON.stringify(this.folders))
     this.showFile();
@@ -121,61 +124,67 @@ export class MainSidebarComponent implements OnInit {
       localStorage.setItem('fileId', id)
       localStorage.setItem('listName', listName)
 
+
     })
     this.commanServices.sendClickEvent();
   }
 
-renameFile(index,id,event:any){
-  let target = event.target.parentNode.parentNode.parentNode.previousSibling.firstChild
-  target.contentEditable = "true";
+  renameFile(index, id, event: any) {
+    let target = event.target.parentNode.parentNode.parentNode.previousSibling.firstChild
+    target.contentEditable = "true";
 
 
-  let interVel=setInterval(()=>{
-    target.contentEditable="false"
-    this.newFileName = target.innerText
-    for (let i = 0; i < this.folders.length; i++) {
-      for (let j = 0; j < this.folders[i].lists.length; j++) {
-        if (this.folders[i].lists[j].id==id) {
-          this.folders[i].lists[j].listName = this.newFileName
-          // console.log(this.folders[i].lists[j]);
-          localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+    let interVel = setInterval(() => {
+      target.contentEditable = "false"
+      this.newFileName = target.innerText
+      for (let i = 0; i < this.folders.length; i++) {
+        for (let j = 0; j < this.folders[i].lists.length; j++) {
+          if (this.folders[i].lists[j].id == id) {
+            this.folders[i].lists[j].listName = this.newFileName
+
+            localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+          }
+
         }
 
       }
 
-    }
+    }, 8000)
+    setTimeout(() => {
 
-  },8000)
-  setTimeout(() => {
+      clearInterval(interVel);
+      this.ngOnInit();
+    }, 10000);
 
-    clearInterval(interVel);
-    this.ngOnInit();
-  }, 10000);
-
-}
+  }
 
 
 
 
-  deleteFile(index,id){
-    console.log('in deltt',id);
+  deleteFile(index, id) {
+    console.log('in deltt', id);
+    console.log('index', index);
+
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
     for (let i = 0; i < this.folders.length; i++) {
-     for (let j = 0; j < this.folders[i].lists.length; j++) {
-       if (this.folders[i].lists[j].id == id) {
-        this.deletedFile = this.folders[i].lists.splice(index, 1);
-       console.log(this.deletedFile);
-       }
-     }
+      for (let j = 0; j < this.folders[i].lists.length; j++) {
+        if (this.folders[i].lists[j].id == id) {
+          this.deletedFile = this.folders[i].lists.splice(index, 1);
+          console.log(this.deletedFile);
+        }
+      }
     }
+    console.log(this.folders);
 
     localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+
     this.showFile();
+
   }
 
-  deleteFolder(id,index){
-    console.log('delete folder',id);
+  deleteFolder(id, index) {
+    console.log('delete folder', id);
     this.everyThing = localStorage.getItem('EveryThing')
     this.folders = JSON.parse(this.everyThing)
     for (let i = 0; i < this.folders.length; i++) {
@@ -186,24 +195,24 @@ renameFile(index,id,event:any){
       }
 
     }
-
-    localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+    localStorage.clear();
+    // localStorage.setItem('EveryThing', JSON.stringify(this.folders))
   }
-  renameFolder(id,event:any){
+  renameFolder(id, event: any) {
     let target = event.target.parentNode.parentNode.parentNode.parentNode.firstChild.children[3]
-    console.log('rename folder',target);
+    console.log('rename folder', target);
     target.contentEditable = "true";
 
-    let interval = setInterval(()=>{
+    let interval = setInterval(() => {
       target.contentEditable = 'false'
       this.newFolderName = target.innerText
       for (let i = 0; i < this.folders.length; i++) {
-        if (this.folders[i].id==id) {
+        if (this.folders[i].id == id) {
           this.folders[i].folderName = this.newFolderName
           localStorage.setItem('EveryThing', JSON.stringify(this.folders))
         }
       }
-    },7000)
+    }, 7000)
     setTimeout(() => {
 
       clearInterval(interval);
