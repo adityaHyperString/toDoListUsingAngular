@@ -1,0 +1,32 @@
+.add-folder {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.folder-container {
+  margin-top: 20px;
+
+  .folder-title {
+    margin-bottom: 20px;
+
+    .file-list {
+      padding-left: 20px;
+      margin-top: 12px;
+
+      p {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.no-record {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: CALC(100vh - 80px);
+}

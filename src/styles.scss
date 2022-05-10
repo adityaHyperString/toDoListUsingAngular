@@ -1,11 +1,33 @@
-@use 'themes' as *;
+@use "themes" as *;
 
-@use '@nebular/theme/styles/globals' as *;
+@use "@nebular/theme/styles/globals" as *;
 
 @include nb-install() {
   @include nb-theme-global();
-};
+}
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+nb-layout .layout .layout-container nb-sidebar.fixed,
+nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
+  top: 0 !important;
+}
+
+nb-layout {
+  nav {
+    justify-content: center !important;
+  }
+}
+
+nb-icon {
+  cursor: pointer;
+}

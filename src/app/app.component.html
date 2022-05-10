@@ -1,21 +1,13 @@
-
 <nb-layout class="layout">
-  <nb-sidebar  state="compacted" class="compactSidebar">
-      <app-compact-sidebar ></app-compact-sidebar>
-  </nb-sidebar>
+  <!-- SIDEBAR -->
   <nb-sidebar>
-    <app-main-sidebar ></app-main-sidebar>
+    <app-sidebar></app-sidebar>
   </nb-sidebar>
-  <nb-layout-header subheader>
-    <app-header></app-header>
-  </nb-layout-header>
 
+  <nb-layout-header subheader> TODO </nb-layout-header>
+
+  <!-- LAYOUT -->
   <nb-layout-column>
-    <app-add-todo-list></app-add-todo-list>
+    <app-todo-list></app-todo-list>
   </nb-layout-column>
-
-  <nb-layout-footer fixed>
-  <!-- Insert footer here -->
-  </nb-layout-footer>
-
 </nb-layout>

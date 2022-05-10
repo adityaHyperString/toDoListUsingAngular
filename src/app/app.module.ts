@@ -5,38 +5,45 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { AddTodoListComponent } from './add-todo-list/add-todo-list.component';
-import { ShowTodoListComponent } from './show-todo-list/show-todo-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { UpdateTodoListComponent } from './update-todo-list/update-todo-list.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FilterPipe } from './appPipes/filter.pipe';
-import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbButtonModule, NbWindowModule, NbTabsetModule, NbSidebarModule, NbIconModule, NbListModule, NbActionsModule, NbInputModule, NbFormFieldModule, NbSelectModule, NbMenuModule } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbCardModule,
+  NbButtonModule,
+  NbWindowModule,
+  NbTabsetModule,
+  NbSidebarModule,
+  NbIconModule,
+  NbListModule,
+  NbActionsModule,
+  NbInputModule,
+  NbFormFieldModule,
+  NbSelectModule,
+  NbMenuModule,
+  NbDialogModule,
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { CompactSidebarComponent } from './compact-sidebar/compact-sidebar.component';
-import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ShowTodosComponent } from './show-todos/show-todos.component';
+
+// COMPONENTS
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { AddFolderComponent } from './sidebar/add-folder/add-folder.component';
+import { AddEditTodoComponent } from './todo-list/add-edit-todo/add-edit-todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    AddTodoListComponent,
-    ShowTodoListComponent,
-    UpdateTodoListComponent,
-    FilterPipe,
-    ConfirmBoxComponent,
-    CompactSidebarComponent,
-    MainSidebarComponent,
-    ShowTodosComponent,
-
+    SidebarComponent,
+    TodoListComponent,
+    AddFolderComponent,
+    AddEditTodoComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,9 +71,10 @@ import { ShowTodosComponent } from './show-todos/show-todos.component';
     NbFormFieldModule,
     NbSelectModule,
     NbMenuModule.forRoot(),
-    MatIconModule
+    MatIconModule,
+    NbDialogModule.forRoot(),
   ],
-  providers: [AddTodoListComponent],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

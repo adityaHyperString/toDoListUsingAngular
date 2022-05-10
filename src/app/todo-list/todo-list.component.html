@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- SEARCH -->
+    <div class="col-12" *ngIf="file">
+      <div class="search-container">
+        <input
+          type="text"
+          nbInput
+          fullWidth
+          shape="round"
+          placeholder="Search..."
+        />
+      </div>
+    </div>
+
+    <!-- TODO LIST -->
+
+    <div class="col-12">
+      <div class="table-container table-responsive" *ngIf="file">
+        <h2>
+          {{ file?.title }}
+
+          <nb-icon icon="plus-outline" (click)="addTodo()"></nb-icon>
+        </h2>
+
+        <table class="table">
+          <colgroup>
+            <col width="10%" />
+            <col width="70%" />
+            <col />
+          </colgroup>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let list of file?.todo; let index = index">
+              <td>
+                {{ index }}
+              </td>
+
+              <td>
+                {{ list?.title }}
+              </td>
+
+              <td class="text-center">
+                <div class="action">
+                  <nb-icon icon="edit-outline"></nb-icon>
+
+                  <nb-icon icon="trash-2-outline"></nb-icon>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!file?.todo.length">
+              <td colspan="3" class="text-center">No Data</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="no-file-record" *ngIf="!file">No File Selected</div>
+    </div>
+  </div>
+</div>

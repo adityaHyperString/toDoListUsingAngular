@@ -1,0 +1,29 @@
+<div class="container-fluid p-0">
+  <div class="row">
+    <div class="col-12">
+      <div class="add-folder">
+        <nb-icon icon="plus-outline" (click)="addFolder()"></nb-icon>
+      </div>
+
+      <div class="folder-container">
+        <div class="folder-title" *ngFor="let folder of folders">
+          <span>{{ folder?.title }}</span>
+
+          <div class="files-container">
+            <div class="file-list" *ngFor="let file of folder.files">
+              <p>
+                {{ file.title }}
+
+                <span>
+                  <nb-icon icon="more-vertical-outline"></nb-icon>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-record" *ngIf="!folders.length">No Data</div>
+      </div>
+    </div>
+  </div>
+</div>
