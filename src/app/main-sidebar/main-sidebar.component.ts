@@ -191,12 +191,12 @@ export class MainSidebarComponent implements OnInit {
 
       if (this.folders[i].id == id) {
         this.deletedFolder = this.folders.splice(index, 1);
-        console.log(this.deletedFolder);
+
       }
 
     }
     localStorage.clear();
-    // localStorage.setItem('EveryThing', JSON.stringify(this.folders))
+    localStorage.setItem('EveryThing', JSON.stringify(this.folders))
   }
   renameFolder(id, event: any) {
     let target = event.target.parentNode.parentNode.parentNode.parentNode.firstChild.children[3]
