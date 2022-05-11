@@ -9,6 +9,7 @@
           fullWidth
           shape="round"
           placeholder="Search..."
+          [(ngModel)]="txtSearch"
         />
       </div>
     </div>
@@ -20,7 +21,7 @@
         <h2>
           {{ file?.title }}
 
-          <nb-icon icon="plus-outline" (click)="addTodo()"></nb-icon>
+          <nb-icon icon="plus-outline" (click)="addTodo(file.id)"></nb-icon>
         </h2>
 
         <table class="table">
@@ -39,25 +40,24 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let list of file?.todo; let index = index">
+            <tr *ngFor="let list of file?.todos | filterPipe:txtSearch; let index = index">
               <td>
-                {{ index }}
+                {{ index+1 }}
               </td>
 
               <td>
-                {{ list?.title }}
+                {{ list?.name }}
               </td>
 
               <td class="text-center">
                 <div class="action">
-                  <nb-icon icon="edit-outline"></nb-icon>
-
-                  <nb-icon icon="trash-2-outline"></nb-icon>
+                  <nb-icon icon="edit-outline" (click)="editToDo(list)" ></nb-icon>
+                  <nb-icon icon="trash-2-outline" (click)="deleteTodo(list.id,index)" ></nb-icon>
                 </div>
               </td>
             </tr>
 
-            <tr *ngIf="!file?.todo.length">
+            <tr *ngIf="!file?.todos.length">
               <td colspan="3" class="text-center">No Data</td>
             </tr>
           </tbody>

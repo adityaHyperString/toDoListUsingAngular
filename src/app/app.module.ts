@@ -36,6 +36,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { AddFolderComponent } from './sidebar/add-folder/add-folder.component';
 import { AddEditTodoComponent } from './todo-list/add-edit-todo/add-edit-todo.component';
+import { AddFileComponent } from './sidebar/add-file/add-file.component';
+import { ConfirmBoxComponent } from './todo-list/confirm-box/confirm-box.component';
+import { FilterPipePipe } from './filter-pipe.pipe';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { AddEditTodoComponent } from './todo-list/add-edit-todo/add-edit-todo.co
     TodoListComponent,
     AddFolderComponent,
     AddEditTodoComponent,
+    AddFileComponent,
+    ConfirmBoxComponent,
+    FilterPipePipe,
+
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <div class="add-folder-container" [formGroup]="newFolderForm">
-        <h2>Add Folder</h2>
+      <div class="add-folder-container" [formGroup]="newFileForm">
+        <h2>Add File</h2>
 
-        <input type="text" nbInput fullWidth formControlName="folderName" placeholder="Folder Name" />
+        <input type="text" nbInput fullWidth formControlName="fileName" placeholder="File Name" />
 
         <div class="action-container">
           <button nbButton status="basic" (click)="close()">Cancel</button>

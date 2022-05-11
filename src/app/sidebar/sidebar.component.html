@@ -2,16 +2,29 @@
   <div class="row">
     <div class="col-12">
       <div class="add-folder">
-        <nb-icon icon="plus-outline" (click)="addFolder()"></nb-icon>
+        <nb-icon icon="plus-outline" matTooltip="Add New Folder" (click)="addFolder()"></nb-icon>
       </div>
 
       <div class="folder-container">
         <div class="folder-title" *ngFor="let folder of folders">
-          <span>{{ folder?.title }}</span>
+          <div class="folder-row">
+            <span>
+              <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+            </span>
+            <span>
+              <nb-icon icon="book-outline"></nb-icon>
+            </span>
+            <span>
+              {{ folder?.folderName }}
+            </span>
+            <span class="add-file">
+              <nb-icon icon="plus-outline" matTooltip="Add New File" (click)="addFile(folder.id)"></nb-icon>
+            </span>
+          </div>
 
           <div class="files-container">
             <div class="file-list" *ngFor="let file of folder.files">
-              <p>
+              <p (click)="selectFile(file)">
                 {{ file.title }}
 
                 <span>

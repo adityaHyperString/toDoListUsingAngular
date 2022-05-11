@@ -5,53 +5,55 @@ import { FormGroup, FormControl, FormBuilder, } from "@angular/forms";
 import { NbDialogRef } from '@nebular/theme';
 import { CommonFunctionServiceService } from "../../services/common-function-service.service";
 
-
 @Component({
-  selector: 'app-add-folder',
-  templateUrl: './add-folder.component.html',
-  styleUrls: ['./add-folder.component.scss'],
+  selector: 'app-add-file',
+  templateUrl: './add-file.component.html',
+  styleUrls: ['./add-file.component.scss']
 })
-export class AddFolderComponent implements OnInit {
-  newFolderForm: FormGroup;
+export class AddFileComponent implements OnInit {
+  newFileForm: FormGroup;
   folders: any[];
 
   constructor(
     private fb: FormBuilder,
     private nbDialogRef: NbDialogRef<any>,
     private commanServices: CommonFunctionServiceService,
-
   ) { }
 
-
   ngOnInit(): void {
-    this.newFolderForm = this.fb.group({
-      "folderName": new FormControl(),
+    this.newFileForm = this.fb.group({
+      "fileName": new FormControl(),
     });
 
   }
 
-  //TO SAVE OR PUSH FOLEDER IN LOCALSTORAGE
+  //TO SAVE OR PUSH FILE INSIDE PARTICULAR FOLDER AND STORE ALL DATA IN LOCALSTORAGE
   save() {
+    let folderId = localStorage.getItem('folderId')
     let allData = localStorage.getItem('allData')
     if (allData == null) {
       this.folders = [];
     } else {
       this.folders = JSON.parse(allData);
     }
-    this.folders.push({
-      id: Math.floor(Math.random() * 900000).toString(),
-      folderName: this.newFolderForm.value.folderName,
-      files: []
-    })
+    for (let i = 0; i < this.folders.length; i++) {
+      if (this.folders[i].id == folderId) {
+        this.folders[i].files.push({
+          id: Math.floor(Math.random() * 900000).toString(),
+          title: this.newFileForm.value.fileName,
+          todos: []
+        })
+      }
+    }
     localStorage.setItem('allData', JSON.stringify(this.folders))
     this.commanServices.sendClickEvent();
-    this.nbDialogRef.close();
-
+    this.close()
   }
 
   //TO CLOSE DIALOG BOX
   close() {
     this.nbDialogRef.close();
   }
+
 
 }
