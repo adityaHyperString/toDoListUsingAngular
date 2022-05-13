@@ -2,37 +2,60 @@
   <div class="row">
     <div class="col-12">
       <div class="add-folder">
-        <nb-icon icon="plus-outline" matTooltip="Add New Folder" (click)="addFolder()"></nb-icon>
+        <nb-icon icon="plus-outline" class="Icon" matTooltip="Add New Folder" (click)="addFolder()"></nb-icon>
       </div>
 
       <div class="folder-container">
         <div class="folder-title" *ngFor="let folder of folders">
-          <div class="folder-row">
-            <span>
-              <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
-            </span>
-            <span>
-              <nb-icon icon="book-outline"></nb-icon>
-            </span>
-            <span>
-              {{ folder?.folderName }}
-            </span>
-            <span class="add-file">
-              <nb-icon icon="plus-outline" matTooltip="Add New File" (click)="addFile(folder.id)"></nb-icon>
-            </span>
-          </div>
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header class="nbAccordian">
+                <!-- <nb-icon icon="plus-outline"></nb-icon> -->
+                <div class="folder-row">
+                  <span>
+                    <nb-icon icon="book-outline" class="book"></nb-icon>
+                    <nb-icon icon="book-open-outline" class="bookOpen"></nb-icon>
+                  </span>
+                  <span>
+                    {{ folder?.folderName }}
+                  </span>
 
-          <div class="files-container">
-            <div class="file-list" *ngFor="let file of folder.files">
-              <p (click)="selectFile(file)">
-                {{ file.title }}
+                </div>
+              </nb-accordion-item-header>
 
-                <span>
-                  <nb-icon icon="more-vertical-outline"></nb-icon>
-                </span>
-              </p>
-            </div>
-          </div>
+              <nb-accordion-item-body>
+                <div class="files-container">
+                  <p (click)="addFile(folder.id)" class="cursor mt-2">
+                    <span class="add-file">
+                      <nb-icon icon="plus-outline" matTooltip="Add New File"></nb-icon>
+                      Add File
+                    </span>
+                  </p>
+                  <div class="file-list" *ngFor="let file of folder.files;index as index">
+
+
+                    <p (click)="selectFile(file)" class="p1 cursor">
+                      <span>
+                        <nb-icon icon="file-text-outline"></nb-icon>
+                      </span>
+                      <span>
+
+                        {{ file.title }}
+                      </span>
+                      <span>
+                        <nb-icon icon="more-vertical-outline" [nbPopover]="template" nbPopoverPlacement="right">
+                        </nb-icon>
+                      </span>
+                      <ng-template  #template>
+                        <a class="dropdown-item cursor" (click)="editFile(file)">Rename</a>
+                        <a class="dropdown-item cursor" (click)="deleteFile(file,index)">Delete</a>
+                      </ng-template>
+                    </p>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
         </div>
 
         <div class="no-record" *ngIf="!folders.length">No Data</div>

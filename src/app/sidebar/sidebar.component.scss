@@ -5,16 +5,16 @@
 }
 
 .folder-container {
-  margin-top: 20px;
+  margin-top: 10px;
 
   .folder-title {
     margin-bottom: 20px;
 
     .file-list {
       padding-left: 20px;
-      margin-top: 12px;
 
-      p {
+
+      .p1 {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -22,14 +22,51 @@
       }
     }
   }
-  .add-file{
+
+}
+.add-file{
+
+  margin-left: 20px;
   display: inline-block;
   }
-}
-
 .no-record {
   display: flex;
   justify-content: center;
   align-items: center;
   height: CALC(100vh - 80px);
 }
+.cursor{
+  cursor: pointer;
+}
+.bookOpen{
+  display: none;
+}
+
+.nbAccordian[aria-expanded=true] .book{
+  display: none;
+}
+.nbAccordian[aria-expanded=true] .bookOpen{
+  display: inline-block;
+}
+nb-accordion-item-header[aria-expanded=true] {
+  border-bottom: none !important;
+}
+nb-accordion{
+  box-shadow: none !important;
+}
+nb-accordion-item-body{
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+p{
+ padding: 5px 3px 5px 3px;
+}
+p:hover{
+  border-radius: 8px;
+  background-color: #7b68ee;
+  color: white;
+  nb-icon{
+    color: white;
+  }
+}
+

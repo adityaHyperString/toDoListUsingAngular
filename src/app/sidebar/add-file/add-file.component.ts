@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, } from "@angular/forms";
 
+
 // SERVICES
 import { NbDialogRef } from '@nebular/theme';
 import { CommonFunctionServiceService } from "../../services/common-function-service.service";
@@ -13,6 +14,8 @@ import { CommonFunctionServiceService } from "../../services/common-function-ser
 export class AddFileComponent implements OnInit {
   newFileForm: FormGroup;
   folders: any[];
+  flag: any;
+  file: any;
 
   constructor(
     private fb: FormBuilder,
@@ -22,7 +25,7 @@ export class AddFileComponent implements OnInit {
 
   ngOnInit(): void {
     this.newFileForm = this.fb.group({
-      "fileName": new FormControl(),
+      "fileName": new FormControl(this.file?.title),
     });
 
   }
@@ -55,5 +58,19 @@ export class AddFileComponent implements OnInit {
     this.nbDialogRef.close();
   }
 
+  //TO EDIT FILE NAME OF PARTICULAR FOLDER
+  edit() {
+    let allData = JSON.parse(localStorage.getItem('allData'))
+    for (let i = 0; i < allData.length; i++) {
+      for (let j = 0; j < allData[i].files.length; j++) {
+        if (allData[i].files[j].id == this.file?.id) {
+          allData[i].files[j].title = this.newFileForm.value.fileName
+          localStorage.setItem('allData', JSON.stringify(allData))
+          this.commanServices.sendClickEvent();
+          this.close()
+        }
+      }
+    }
+  }
 
 }

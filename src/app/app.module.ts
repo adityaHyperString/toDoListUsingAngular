@@ -27,6 +27,8 @@ import {
   NbSelectModule,
   NbMenuModule,
   NbDialogModule,
+  NbAccordionModule,
+  NbPopoverModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MatIconModule } from '@angular/material/icon';
@@ -81,6 +83,8 @@ import { FilterPipePipe } from './filter-pipe.pipe';
     NbMenuModule.forRoot(),
     MatIconModule,
     NbDialogModule.forRoot(),
+    NbAccordionModule,
+    NbPopoverModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

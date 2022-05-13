@@ -4,7 +4,7 @@ import { Observable, Subject } from "rxjs";
   providedIn: 'root',
 })
 export class CommonFunctionServiceService {
-  file: Subject<any> = new Subject();
+  file: Subject<any> = new Subject<any>();
   public sub = new Subject<any>();
 
 

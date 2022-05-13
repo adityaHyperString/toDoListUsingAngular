@@ -3,14 +3,7 @@
     <!-- SEARCH -->
     <div class="col-12" *ngIf="file">
       <div class="search-container">
-        <input
-          type="text"
-          nbInput
-          fullWidth
-          shape="round"
-          placeholder="Search..."
-          [(ngModel)]="txtSearch"
-        />
+        <input type="text" nbInput fullWidth shape="round" placeholder="Search..." [(ngModel)]="txtSearch" />
       </div>
     </div>
 
@@ -19,9 +12,13 @@
     <div class="col-12">
       <div class="table-container table-responsive" *ngIf="file">
         <h2>
+          <span>
           {{ file?.title }}
-
-          <nb-icon icon="plus-outline" (click)="addTodo(file.id)"></nb-icon>
+          <span class="ml-4 taskSpan">
+            {{totalTasks}} TASKS
+          </span>
+          </span>
+          <nb-icon icon="plus-outline" class="Icon" matTooltip="Add Todo" (click)="addTodo(file.id)"></nb-icon>
         </h2>
 
         <table class="table">
@@ -43,6 +40,7 @@
             <tr *ngFor="let list of file?.todos | filterPipe:txtSearch; let index = index">
               <td>
                 {{ index+1 }}
+
               </td>
 
               <td>
@@ -51,8 +49,9 @@
 
               <td class="text-center">
                 <div class="action">
-                  <nb-icon icon="edit-outline" (click)="editToDo(list)" ></nb-icon>
-                  <nb-icon icon="trash-2-outline" (click)="deleteTodo(list.id,index)" ></nb-icon>
+                  <nb-icon icon="edit-outline" class="Icon" matTooltip="Edit Todo" (click)="editToDo(list)"></nb-icon>
+                  <nb-icon icon="trash-2-outline" class="Icon" matTooltip="Delete Todo" (click)="deleteTodo(list.id,index)">
+                  </nb-icon>
                 </div>
               </td>
             </tr>

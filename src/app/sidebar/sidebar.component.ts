@@ -18,7 +18,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private _dialogService: NbDialogService,
-    private _commonFunctionService: CommonFunctionServiceService
+    private _commonFunctionService: CommonFunctionServiceService,
+
   ) {
     this._commonFunctionService.getClickEvent().subscribe(() => {
       this.showFolder();
@@ -41,20 +42,45 @@ export class SidebarComponent implements OnInit {
 
   //TO OPEN DIALOG BOX WITH ADD FOLDER COMPONENT
   addFolder() {
-    this._dialogService.open(AddFolderComponent, {
-    });
+    this._dialogService.open(AddFolderComponent);
   }
 
   //TO OPEN DIALOG BOX WITH ADD FILE COMPONENT, STORING FOLDERID IN LOCALSTORAGE
   addFile(id) {
     localStorage.setItem('folderId', id)
     this._dialogService.open(AddFileComponent, {
+      context: {
+        flag: 0
+      }
     });
   }
 
   //TO OPEN FILE IN LAYOUT COLOUMN
   selectFile(file) {
     this._commonFunctionService.file.next(file);
+  }
+
+  //DELETE FILE FORM PARTICULAR FOLDER
+  deleteFile(file, index) {
+    let allData = JSON.parse(localStorage.getItem('allData'))
+    for (let i = 0; i < allData.length; i++) {
+      for (let j = 0; j < allData[i].files.length; j++) {
+        if (allData[i].files[j].id == file.id) {
+          allData[i].files.splice(index, 1)
+          localStorage.setItem('allData', JSON.stringify(allData))
+          this.showFolder();
+        }
+      }
+    }
+  }
+
+  editFile(file) {
+    this._dialogService.open(AddFileComponent, {
+      context: {
+        flag: 1,
+        file: file
+      }
+    });
   }
 
 }

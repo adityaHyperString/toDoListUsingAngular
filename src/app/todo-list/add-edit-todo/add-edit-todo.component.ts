@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, } from "@angular/forms";
 
+
 //SERVICES
-import { MatDialog, MAT_DIALOG_DATA, } from '@angular/material/dialog';
+import { NbDialogRef } from '@nebular/theme';
+
 import { CommonFunctionServiceService } from "../../services/common-function-service.service";
+
 
 @Component({
   selector: 'app-add-edit-todo',
@@ -12,20 +15,23 @@ import { CommonFunctionServiceService } from "../../services/common-function-ser
 })
 export class AddEditTodoComponent implements OnInit {
   newTodoForm: FormGroup
-
+  flag:any;
+  list:any;
+  myImage:any;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data,
+    private nbDialogRef: NbDialogRef<any>,
+
     private fb: FormBuilder,
-    private dialog: MatDialog,
     private commanSerives: CommonFunctionServiceService
   ) { }
 
   ngOnInit(): void {
     this.newTodoForm = this.fb.group({
-      "name": new FormControl(this.data?.list?.name),
-      "discription": new FormControl(this.data?.list?.discription),
+      "name": new FormControl(this.list?.name),
+      "discription": new FormControl(this.list?.discription),
     });
+    this.myImage = JSON.parse(localStorage.getItem('myImage'))
   }
 
   //USED TO SAVE AND PUSH TODOS IN PARTICULAR FILE
@@ -44,7 +50,7 @@ export class AddEditTodoComponent implements OnInit {
       }
     }
     localStorage.setItem('allData', JSON.stringify(allData))
-    this.dialog.closeAll();
+    this.nbDialogRef.close();
     this.commanSerives.sendClickEvent();
   }
 
@@ -56,7 +62,7 @@ export class AddEditTodoComponent implements OnInit {
       for (let j = 0; j < allData[i].files.length; j++) {
         if (allData[i].files[j].id == fileId) {
           for (let k = 0; k < allData[i].files[j].todos.length; k++) {
-            if (allData[i].files[j].todos[k].id == this.data.list.id) {
+            if (allData[i].files[j].todos[k].id == this.list?.id) {
               allData[i].files[j].todos[k].name = this.newTodoForm.value.name
               allData[i].files[j].todos[k].discription = this.newTodoForm.value.discription
             }
@@ -66,13 +72,41 @@ export class AddEditTodoComponent implements OnInit {
       }
     }
     localStorage.setItem('allData', JSON.stringify(allData))
-    this.dialog.closeAll();
+    this.nbDialogRef.close();
     this.commanSerives.sendClickEvent();
   }
 
   //USED TO CLOSE DIALOG
   close() {
-    this.dialog.closeAll();
+    this.nbDialogRef.close();
   }
+
+
+  onChange(event:any){
+
+    const file = (event.target as HTMLInputElement).files[0];
+    const fileName = file.name;
+    const fileReader = new FileReader();
+     fileReader.readAsDataURL(file);
+    fileReader.onload = ()=>{
+      console.log(fileReader.result);
+      localStorage.setItem('myImage',JSON.stringify(fileReader.result))
+    }
+
+
+  }
+
+  // readFile(file: File, subscriber: Subscriber<any>) {
+  //   const fileReader = new FileReader();
+  //   fileReader.readAsDataURL(file);
+  //   fileReader.onload = () => {
+  //     subscriber.next(fileReader.result);
+  //     subscriber.complete();
+  //   };
+  //   fileReader.onerror = (error) => {
+  //     subscriber.error(error);
+  //     subscriber.complete();
+  //   }
+  // }
 
 }

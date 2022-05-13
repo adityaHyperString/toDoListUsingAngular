@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 // SERVICES
+import { CommonFunctionServiceService } from '../services/common-function-service.service';
+import { NbDialogService } from '@nebular/theme';
+
+//COMPONENTS
 import { AddEditTodoComponent } from "./add-edit-todo/add-edit-todo.component";
 import { ConfirmBoxComponent } from "./confirm-box/confirm-box.component";
-import { CommonFunctionServiceService } from '../services/common-function-service.service';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -13,17 +17,22 @@ import { CommonFunctionServiceService } from '../services/common-function-servic
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
-  file: any;
-  txtSearch: string = '';
   folders: any[];
+  file: any;
+  totalTasks: any;
+  txtSearch: string = '';
 
   constructor(private _commonFunctionService: CommonFunctionServiceService,
     private dialog: MatDialog,
+    private _dialogService: NbDialogService,
     public snackBar: MatSnackBar
   ) {
     this._commonFunctionService.file.subscribe((response) => {
       if (response) {
         this.file = response;
+        this.totalTasks = this.file.todos.length
+        localStorage.setItem('fileId', this.file.id)
+        this.showTodo();
       }
     });
     this._commonFunctionService.getClickEvent().subscribe(() => {
@@ -32,7 +41,7 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showTodo()
+
   }
 
   // TO SHOW TODO LISTS OF PERTICULAR FILE
@@ -48,6 +57,7 @@ export class TodoListComponent implements OnInit {
       for (let j = 0; j < this.folders[i].files.length; j++) {
         if (this.folders[i].files[j].id == fileId)
           this.file = this.folders[i].files[j]
+           this.totalTasks = this.file.todos.length
       }
     }
   }
@@ -55,8 +65,8 @@ export class TodoListComponent implements OnInit {
   //TO OPEN DIALOG BOX FOR ADDING TODOS IN PERTICULAR FILE
   addTodo(fileId) {
     localStorage.setItem('fileId', fileId)
-    this.dialog.open(AddEditTodoComponent, {
-      data: {
+    this._dialogService.open(AddEditTodoComponent, {
+      context: {
         flag: 0
       }
     })
@@ -71,28 +81,32 @@ export class TodoListComponent implements OnInit {
   //TO DELETE PARTICULAR TODO FROM PARTICULAR FILE
   deleteTodo(id, index) {
     let fileId = localStorage.getItem('fileId')
-    this.folders = JSON.parse(localStorage.getItem('allData'))
-    for (let i = 0; i < this.folders.length; i++) {
-      for (let j = 0; j < this.folders[i].files.length; j++) {
-        if (this.folders[i].files[j].id == fileId) {
-          for (let k = 0; k < this.folders[i].files[j].todos.length; k++) {
-            if (this.folders[i].files[j].todos[k].id == id) {
-              this.openConfirmDialog().afterClosed().subscribe(response => {
-                if (response) {
-                  let deletedData = this.folders[i].files[j].todos.splice(index, 1);
+    let allData = JSON.parse(localStorage.getItem('allData'))
+    for (let i = 0; i < allData.length; i++) {
+      for (let j = 0; j < allData[i].files.length; j++) {
+        if (allData[i].files[j].id == fileId) {
+          for (let k = 0; k < allData[i].files[j].todos.length; k++) {
+            if (allData[i].files[j].todos[k].id == id) {
+              this.openConfirmDialog().afterClosed().subscribe(res => {
+                if (res) {
+                  let deletedData = allData[i].files[j].todos.splice(index, 1);
                   localStorage.setItem('deletedTodo', JSON.stringify(deletedData))
-                  localStorage.setItem('allData', JSON.stringify(this.folders))
+                  localStorage.setItem('allData', JSON.stringify(allData))
+                  this.showTodo();
+                  this.openSnackBar()
                 }
-                //TO SHOWTODO AFTER DELETEING FILE
-                this.showTodo();
-                //TO OPEN SNACKBAR
-                this.openSnackBar()
+
+
+
               });
             }
           }
         }
       }
     }
+
+
+
   }
 
   // TO SHOW TODO IS DELETED
@@ -124,14 +138,13 @@ export class TodoListComponent implements OnInit {
     //USED TO PERMENANTLY REMOVE DELETED TODOS FROM LOCALSTORAGE
     snackBarRef.afterDismissed().subscribe(() => {
       localStorage.removeItem('deletedTodo');
-      this.showTodo();
     })
   }
 
   //USED TO OPEN DIALOG BOX AND PASSING LIST TO DIALOG BOX
   editToDo(list) {
-    this.dialog.open(AddEditTodoComponent, {
-      data: {
+    this._dialogService.open(AddEditTodoComponent, {
+      context: {
         flag: 1,
         list: list
       }

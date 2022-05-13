@@ -1,12 +1,22 @@
 .add-todo-container {
   background: #fff;
-  padding: 10px;
+  padding: 20px;
   width: 600px;
-
+  border-radius: 10px;
 }
 
 .action-container {
   margin-top: 25px;
   position: relative;
-  margin-left: 390px;
+  margin-left: 370px;
+}
+.fileUpload{
+  display: none;
+}
+.span1{
+  display: inline-flex;
+}
+.uploadBtn{
+  margin-left: 40px;
+  padding-top: -10px;
 }

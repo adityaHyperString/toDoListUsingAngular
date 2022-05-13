@@ -32,6 +32,16 @@ nb-icon {
   cursor: pointer;
   color: gray;
 }
-mat-dialog-container {
-  border-radius: 10px !important;
+
+nb-accordion-item-header .expansion-indicator {
+  left: 0rem !important;
+}
+nb-accordion-item-body .item-body{
+  margin-top: -20px !important;
+  margin-bottom: -35px !important;
+}
+.Icon:hover{
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  color: #7b68ee;
 }
