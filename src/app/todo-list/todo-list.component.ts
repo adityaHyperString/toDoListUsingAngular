@@ -151,5 +151,14 @@ export class TodoListComponent implements OnInit {
     })
   }
 
+  showImage(list){
+
+    this._dialogService.open(ConfirmBoxComponent,{
+      context:{
+        flag:1,
+        list:list
+      }
+    })
+  }
 
 }

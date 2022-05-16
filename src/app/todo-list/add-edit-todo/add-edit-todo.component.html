@@ -2,16 +2,23 @@
   <div class="row">
     <div class="col-12">
       <div class="add-todo-container" [formGroup]="newTodoForm">
-        <span *ngIf="flag==0" class="span1">
-          <h2 >Add Todos</h2>
-          <input  #fileUpload type="file" id="fileInput" class="fileUpload" (change)="onChange($event)">
-          <button class="uploadBtn" nbButton status="info" (click)="fileUpload.click()">Upload file</button>
-        </span>
-        <img [src]="myImage" alt="" width="100px" height="100px">
-        <h2 *ngIf="flag==1">Edit Todos</h2>
+        <div class="row">
+          <h2 *ngIf="flag==0">Add Todos</h2>
+          <h2 *ngIf="flag==1">Edit Todos</h2>
+        </div>
         <input type="text" nbInput fullWidth formControlName='name' placeholder="Todo Title" />
         <textarea nbInput fullWidth formControlName='discription' placeholder="Todo Description"
           class="mt-3"></textarea>
+        <!-- <span *ngIf="flag==0">
+          <input #fileUpload type="file" id="fileInput" class="fileUpload" (change)="onChange($event)">
+          <button class="uploadBtn" nbButton status="info" (click)="fileUpload.click()">Upload Image</button>
+          <span class="ml-2">{{fileName}}</span>
+        </span>
+        <span *ngIf="flag==1">
+          <input #fileEdit type="file" id="fileInput" class="fileUpload" (change)="onEditChange($event)">
+          <button class="uploadBtn" nbButton status="info" (click)="fileEdit.click()">Edit Image</button>
+          <span class="ml-2">{{fileName}}</span>
+        </span> -->
         <div class="action-container">
           <button nbButton status="basic" class="mr-3" (click)="close()">Cancel</button>
           <button nbButton status="info" *ngIf="flag==0" (click)="save()">Save</button>
