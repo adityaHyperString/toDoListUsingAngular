@@ -33,6 +33,9 @@ import {
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MatIconModule } from '@angular/material/icon';
 
+//SLICK MODULE
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+
 // COMPONENTS
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
@@ -41,6 +44,8 @@ import { AddEditTodoComponent } from './todo-list/add-edit-todo/add-edit-todo.co
 import { AddFileComponent } from './sidebar/add-file/add-file.component';
 import { ConfirmBoxComponent } from './todo-list/confirm-box/confirm-box.component';
 import { FilterPipePipe } from './filter-pipe.pipe';
+import { OpenFileComponent } from './todo-list/open-file/open-file.component';
+import { SafePipe } from './todo-list/open-file/safe.pipe';
 
 
 @NgModule({
@@ -53,6 +58,8 @@ import { FilterPipePipe } from './filter-pipe.pipe';
     AddFileComponent,
     ConfirmBoxComponent,
     FilterPipePipe,
+    OpenFileComponent,
+    SafePipe,
 
   ],
   imports: [
@@ -85,6 +92,7 @@ import { FilterPipePipe } from './filter-pipe.pipe';
     NbDialogModule.forRoot(),
     NbAccordionModule,
     NbPopoverModule,
+    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent],
