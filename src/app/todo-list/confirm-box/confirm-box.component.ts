@@ -12,10 +12,10 @@ export class ConfirmBoxComponent implements OnInit {
   list: any;
   fileImage: any;
   attachedFiles: any[];
-  slideConfig = {"slidesToShow": 4, "slidesToScroll": 3};
+  slideConfig = { "slidesToShow": 4, "slidesToScroll": 3 };
   constructor(
     private snackBar: MatSnackBar,
-    private dialoagService:NbDialogService
+    private dialoagService: NbDialogService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class ConfirmBoxComponent implements OnInit {
     }
   }
 
-
+  //USED TO UPLOAD FILES (ONLY IMAGES,PDF AND CSV FILES)
   onChange(event: any) {
     let allData = JSON.parse(localStorage.getItem('allData'))
     let file = (event.target as HTMLInputElement).files[0];
@@ -46,7 +46,7 @@ export class ConfirmBoxComponent implements OnInit {
                 }
                 allData[i].files[j].todos[k].attachedFiles.push({
                   file: JSON.stringify(fileReader.result),
-                  fileName: file.name,
+                  fileName: file.name.split('.'),
                   fileImage: this.fileImage
                 })
               }
@@ -67,6 +67,7 @@ export class ConfirmBoxComponent implements OnInit {
     }
   }
 
+  //USED TO SHOW UPLOADED FILES
   showAttachedFiles() {
     let allData = JSON.parse(localStorage.getItem('allData'))
     for (let i = 0; i < allData.length; i++) {
@@ -80,30 +81,30 @@ export class ConfirmBoxComponent implements OnInit {
     }
   }
 
-  openFile(files){
-    this.dialoagService.open(OpenFileComponent,{
-      context:{
-        file:files
+  //USED TO OPEN FILE IN ANOTHER POPUP
+  openFile(files) {
+    this.dialoagService.open(OpenFileComponent, {
+      context: {
+        file: files
       }
     })
   }
 
-  deleteFile(files,index){
-
-
+  //USED TO DELETE A FILE FROM LOCAL STORAGE
+  deleteFile(files, index) {
     let allData = JSON.parse(localStorage.getItem('allData'))
     for (let i = 0; i < allData.length; i++) {
       for (let j = 0; j < allData[i].files.length; j++) {
         for (let k = 0; k < allData[i].files[j].todos.length; k++) {
           for (let l = 0; l < allData[i].files[j].todos[k].attachedFiles.length; l++) {
-            if(allData[i].files[j].todos[k].attachedFiles[l].file == files.file){
+            if (allData[i].files[j].todos[k].attachedFiles[l].file == files.file) {
               allData[i].files[j].todos[k].attachedFiles.splice(index, 1)
             }
           }
         }
       }
     }
-    localStorage.setItem('allData',JSON.stringify(allData))
+    localStorage.setItem('allData', JSON.stringify(allData))
     this.showAttachedFiles();
     this.snackBar.open("File deleted Successfully", 'ok', {
       duration: 3000,

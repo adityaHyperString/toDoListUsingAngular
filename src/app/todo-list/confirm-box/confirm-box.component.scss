@@ -12,13 +12,29 @@
   border: none;
 }
 .closeCircle{
-  margin-left: 70px;
+  margin-left: 120px;
 }
 .Icon{
   margin-top: 5px;
   margin-left: 10px;
 }
 .carousel{
-  margin-left: 60px;
-  width: 700px;
+  margin-left: 35px;
+  width: 680px;
+}
+img{
+  margin: auto;
+}
+.span{
+  display: flex;
+ justify-content: center;
+}
+.p{
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.h4{
+  margin-top: 6px;
 }

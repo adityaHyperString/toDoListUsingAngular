@@ -13,10 +13,10 @@
       <div class="table-container table-responsive" *ngIf="file">
         <h2>
           <span>
-          {{ file?.title }}
-          <span class="ml-4 taskSpan">
-            {{totalTasks}} TASKS
-          </span>
+            {{ file?.title }}
+            <span class="ml-4 taskSpan">
+              {{totalTasks}} TASKS
+            </span>
           </span>
           <nb-icon icon="plus-outline" class="Icon" matTooltip="Add Todo" (click)="addTodo(file.id)"></nb-icon>
         </h2>
@@ -50,13 +50,13 @@
               <td class="text-center">
                 <div class="action">
                   <nb-icon icon="edit-outline" class="Icon" matTooltip="Edit Todo" (click)="editToDo(list)"></nb-icon>
-                  <nb-icon icon="eye-outline" class="Icon" matTooltip="Show Image" (click)="showImage(list)"></nb-icon>
-                  <nb-icon icon="trash-2-outline" class="Icon" matTooltip="Delete Todo" (click)="deleteTodo(list.id,index)">
+                  <nb-icon icon="eye-outline" class="Icon" matTooltip="Show Todo" (click)="showFile(list)"></nb-icon>
+                  <nb-icon icon="trash-2-outline" class="Icon" matTooltip="Delete Todo"
+                    (click)="deleteTodo(list.id,index)">
                   </nb-icon>
                 </div>
               </td>
             </tr>
-
             <tr *ngIf="!file?.todos.length">
               <td colspan="3" class="text-center">No Data</td>
             </tr>

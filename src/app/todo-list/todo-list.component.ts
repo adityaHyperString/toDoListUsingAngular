@@ -57,7 +57,11 @@ export class TodoListComponent implements OnInit {
       for (let j = 0; j < this.folders[i].files.length; j++) {
         if (this.folders[i].files[j].id == fileId)
           this.file = this.folders[i].files[j]
-           this.totalTasks = this.file.todos.length
+          if (this.totalTasks == undefined ) {
+            this.totalTasks = 0
+          }else{
+            this.totalTasks = this.file.todos.length
+          }
       }
     }
   }
@@ -95,17 +99,12 @@ export class TodoListComponent implements OnInit {
                   this.showTodo();
                   this.openSnackBar()
                 }
-
-
-
               });
             }
           }
         }
       }
     }
-
-
 
   }
 
@@ -151,12 +150,12 @@ export class TodoListComponent implements OnInit {
     })
   }
 
-  showImage(list){
-
-    this._dialogService.open(ConfirmBoxComponent,{
-      context:{
-        flag:1,
-        list:list
+  //USED TO OPEN TODO IN CONFIRMBOX COMPONENT
+  showFile(list) {
+    this._dialogService.open(ConfirmBoxComponent, {
+      context: {
+        flag: 1,
+        list: list
       }
     })
   }

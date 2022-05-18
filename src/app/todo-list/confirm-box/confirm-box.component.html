@@ -26,17 +26,25 @@
       disabled></textarea>
   </div>
   <div class="row mt-4" *ngIf="attachedFiles.length!=0">
-
+    <!-- SLICK CAROUSEL START-->
     <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-      <div ngxSlickItem  *ngFor="let files of attachedFiles; index as index" class="slide card">
+      <div ngxSlickItem *ngFor="let files of attachedFiles; index as index" class="slide card">
         <nb-icon class="closeCircle" icon="close-circle-outline" matTooltip="delete file"
-        (click)="deleteFile(files,index)"></nb-icon>
-      <span (click)="openFile(files)">
-        <img [src]="files.fileImage" alt="" width="80px" height="100px">
-      </span>
-      <span class="mt-2">{{files.fileName}}</span>
+          (click)="deleteFile(files,index)"></nb-icon>
+        <span (click)="openFile(files)">
+          <img [src]="files.fileImage" alt="" width="80px" height="100px">
+        </span>
+        <span class="span">
+          <h4 class="p">
+            {{files.fileName[0]}}
+          </h4>
+          <h4 class="h4">
+            .{{files.fileName[1]}}
+          </h4>
+        </span>
       </div>
     </ngx-slick-carousel>
+    <!-- SLICK CAROUSEL END -->
   </div>
   <div class="row mt-3" *ngIf="attachedFiles.length==0">
     <h3>no files are attached</h3>

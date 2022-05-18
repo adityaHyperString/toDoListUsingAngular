@@ -45,3 +45,6 @@ nb-accordion-item-body .item-body{
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   color: #7b68ee;
 }
+.slick-prev:before, .slick-next:before {
+  color: #7b68ee !important;
+}
