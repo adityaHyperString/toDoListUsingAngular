@@ -12,7 +12,7 @@ export class ConfirmBoxComponent implements OnInit {
   list: any;
   fileImage: any;
   attachedFiles: any[];
-  slideConfig = { "slidesToShow": 4, "slidesToScroll": 3 };
+  slideConfig = { "slidesToShow": 3, "slidesToScroll": 3 };
   constructor(
     private snackBar: MatSnackBar,
     private dialoagService: NbDialogService
@@ -28,6 +28,7 @@ export class ConfirmBoxComponent implements OnInit {
   onChange(event: any) {
     let allData = JSON.parse(localStorage.getItem('allData'))
     let file = (event.target as HTMLInputElement).files[0];
+
     let fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     let ext = file.name.substring(file.name.lastIndexOf('.') + 1);
@@ -109,6 +110,50 @@ export class ConfirmBoxComponent implements OnInit {
     this.snackBar.open("File deleted Successfully", 'ok', {
       duration: 3000,
     });
+  }
+
+  getFile(event:any){
+    let allData = JSON.parse(localStorage.getItem('allData'))
+    let file = event.addedFiles[0]
+
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    let ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() == 'png' || ext.toLowerCase() == 'jpg' || ext.toLowerCase() == 'jpeg' || ext.toLowerCase() == 'csv' || ext.toLowerCase() == 'pdf') {
+      fileReader.onload = () => {
+        for (let i = 0; i < allData.length; i++) {
+          for (let j = 0; j < allData[i].files.length; j++) {
+            for (let k = 0; k < allData[i].files[j].todos.length; k++) {
+              if (allData[i].files[j].todos[k].id == this.list.id) {
+                if (ext.toLowerCase() == 'pdf') {
+                  this.fileImage = '../../assets/pdf.jpeg'
+                } if (ext.toLowerCase() == 'csv') {
+                  this.fileImage = '../../assets/csv.png'
+                } if (ext.toLowerCase() == 'png' || ext.toLowerCase() == 'jpg' || ext.toLowerCase() == 'jpeg') {
+                  this.fileImage = JSON.parse(JSON.stringify(fileReader.result))
+                }
+                allData[i].files[j].todos[k].attachedFiles.push({
+                  file: JSON.stringify(fileReader.result),
+                  fileName: file.name.split('.'),
+                  fileImage: this.fileImage
+                })
+              }
+            }
+          }
+        }
+        localStorage.setItem('allData', JSON.stringify(allData))
+        this.showAttachedFiles();
+        this.snackBar.open("File added Successfully", 'ok', {
+          duration: 3000,
+        });
+      }
+
+    } else {
+      this.snackBar.open("only image,csv and pdf files are allowed", 'ok', {
+        duration: 3000,
+      });
+    }
+
   }
 
 }
